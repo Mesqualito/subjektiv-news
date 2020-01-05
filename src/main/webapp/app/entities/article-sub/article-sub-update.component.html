@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-article-sub-heading" jhiTranslate="subjektivApp.article.home.createOrEditLabel">Create or edit a Article</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="subjektivApp.article.headline" for="field_headline">Headline</label>
+                    <input type="text" class="form-control" name="headline" id="field_headline"
+                           formControlName="headline"/>
+                    <div *ngIf="editForm.get('headline')!.invalid && (editForm.get('headline')!.dirty || editForm.get('headline')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('headline')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="subjektivApp.article.pageNumber" for="field_pageNumber">Page Number</label>
+                    <input type="number" class="form-control" name="pageNumber" id="field_pageNumber"
+                           formControlName="pageNumber"/>
+                    <div *ngIf="editForm.get('pageNumber')!.invalid && (editForm.get('pageNumber')!.dirty || editForm.get('pageNumber')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('pageNumber')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('pageNumber')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="subjektivApp.article.content" for="field_content">Content</label>
+                    <textarea class="form-control" name="content" id="field_content"
+                              formControlName="content"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="subjektivApp.article.release" for="field_release">Release</label>
+                    <select class="form-control" id="field_release" name="release" formControlName="releaseId">
+                        <option *ngIf="!editForm.get('releaseId')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="releaseOption.id" *ngFor="let releaseOption of releases; trackBy: trackById">{{releaseOption.versionCount}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('releaseId')!.invalid && (editForm.get('releaseId')!.dirty || editForm.get('releaseId')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('releaseId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

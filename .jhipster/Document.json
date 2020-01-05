@@ -1,0 +1,34 @@
+{
+    "name": "Document",
+    "fields": [
+        {
+            "fieldName": "data",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "release",
+            "otherEntityRelationshipName": "document",
+            "relationshipValidateRules": "required",
+            "relationshipName": "release",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200105165243",
+    "entityTableName": "document",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "sub"
+}

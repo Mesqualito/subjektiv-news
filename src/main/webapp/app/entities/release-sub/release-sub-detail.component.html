@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="release">
+            <h2><span jhiTranslate="subjektivApp.release.detail.title">Release</span> {{release.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="subjektivApp.release.title">Title</span></dt>
+                <dd>
+                    <span>{{release.title}}</span>
+                </dd>
+                <dt><span jhiTranslate="subjektivApp.release.versionCount">Version Count</span></dt>
+                <dd>
+                    <span>{{release.versionCount}}</span>
+                </dd>
+                <dt><span jhiTranslate="subjektivApp.release.publishDate" [ngbTooltip]="'subjektivApp.release.help.publishDate' | translate">Publish Date</span></dt>
+                <dd>
+                    <span>{{release.publishDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="subjektivApp.release.uploadTimestamp">Upload Timestamp</span></dt>
+                <dd>
+                    <span>{{release.uploadTimestamp}}</span>
+                </dd>
+                <dt><span jhiTranslate="subjektivApp.release.numberOfPages">Number Of Pages</span></dt>
+                <dd>
+                    <span>{{release.numberOfPages}}</span>
+                </dd>
+                <dt><span jhiTranslate="subjektivApp.release.fileSize">File Size</span></dt>
+                <dd>
+                    <span>{{release.fileSize}}</span>
+                </dd>
+                <dt><span jhiTranslate="subjektivApp.release.downloadLink">Download Link</span></dt>
+                <dd>
+                    <span>{{release.downloadLink}}</span>
+                </dd>
+                <dt><span jhiTranslate="subjektivApp.release.document">Document</span></dt>
+                <dd>
+                    <div *ngIf="release.documentId">
+                        <a [routerLink]="['/document-sub', release.documentId, 'view']">{{release.documentId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/release-sub', release.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
