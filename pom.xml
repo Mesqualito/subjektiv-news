@@ -468,7 +468,7 @@
                 <!-- adapted from: https://blog.ippon.tech/containerize-with-jib -->
                 <configuration>
                     <to>
-                        <image>""" jenkins.eigenbaumarkt.com:443/mesqualito/${project.name.toLowerCase()} """</image>
+                        <image>jenkins.eigenbaumarkt.com:443/mesqualito/${project.name.toLowerCase()}</image>
                         <tags>
                             <tag>${maven.build.timestamp}</tag>
                             <tag>latest</tag>
