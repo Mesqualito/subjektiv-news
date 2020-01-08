@@ -467,6 +467,7 @@
                 <artifactId>jib-maven-plugin</artifactId>
                 <!-- adapted from: https://blog.ippon.tech/containerize-with-jib -->
                 <configuration>
+                    <allowInsecureRegistries>true</allowInsecureRegistries>
                     <to>
                         <image>dockerregistry.eigenbaumarkt.com:5000/mesqualito/subjektiv-news</image>
                         <tags>
