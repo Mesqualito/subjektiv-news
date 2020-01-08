@@ -57,7 +57,7 @@ node {
     def dockerImage
     withEnv(["DOCKER_CREDS=credentials('dockerregistry-login')"]) {
         stage('publish docker') {
-            sh "./mvnw -ntp jib:build"
+            sh "./mvnw -X -ntp jib:build"
         }
     }
 }
