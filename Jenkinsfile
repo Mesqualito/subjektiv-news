@@ -5,11 +5,6 @@ node {
         checkout scm
     }
 
-    environment {
-        DOCKER_REGISTRY = 'https://jenkins.eigenbaumarkt.com'
-        DOCKER_CREDS = credentials( 'dockerregistry-login' )
-    }
-
     docker.image('jhipster/jhipster:v6.6.0').inside('-u jhipster -e MAVEN_OPTS="-Duser.home=./"') {
         stage('check java') {
             sh "java -version"
@@ -60,7 +55,9 @@ node {
     // adapted from:
     // https://stackoverflow.com/questions/58562224/how-do-i-pass-jenkins-credentials-to-gradle
     def dockerImage
-    stage('publish docker') {
-        sh "./mvnw -ntp jib:build"
+    withEnv(["DOCKER_CREDS=credentials('dockerregistry-login')"]) {
+        stage('publish docker') {
+            sh "./mvnw -ntp jib:build"
+        }
     }
 }
