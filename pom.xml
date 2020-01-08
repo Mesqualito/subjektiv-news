@@ -474,8 +474,8 @@
                             <tag>latest</tag>
                         </tags>
                         <auth>
-                            username "${System.env.DOCKER_CREDS_USR}"
-                            password "${System.env.DOCKER_CREDS_PSW}"
+                            <username>${System.env.DOCKER_CREDS_USR}</username>
+                            <password>${System.env.DOCKER_CREDS_PSW}</password>
                         </auth>
                     </to>
                     <container>
