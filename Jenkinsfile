@@ -5,6 +5,11 @@ node {
         checkout scm
     }
 
+    environment {
+        DOCKER_REGISTRY = 'https://jenkins.eigenbaumarkt.com'
+        DOCKER_CREDS = credentials( 'dockerregistry-login' )
+    }
+
     docker.image('jhipster/jhipster:v6.6.0').inside('-u jhipster -e MAVEN_OPTS="-Duser.home=./"') {
         stage('check java') {
             sh "java -version"
@@ -29,7 +34,7 @@ node {
         stage('backend tests') {
             try {
                 sh "./mvnw -ntp verify"
-            } catch(err) {
+            } catch (err) {
                 throw err
             } finally {
                 junit '**/target/test-results/**/TEST-*.xml'
@@ -39,7 +44,7 @@ node {
         stage('frontend tests') {
             try {
                 sh "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test'"
-            } catch(err) {
+            } catch (err) {
                 throw err
             } finally {
                 junit '**/target/test-results/**/TEST-*.xml'
@@ -52,10 +57,10 @@ node {
         }
     }
 
+    // adapted from:
+    // https://stackoverflow.com/questions/58562224/how-do-i-pass-jenkins-credentials-to-gradle
     def dockerImage
     stage('publish docker') {
-        // A pre-requisite to this step is to setup authentication to the docker registry
-        // https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin#authentication-methods
         sh "./mvnw -ntp jib:build"
     }
 }
