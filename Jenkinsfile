@@ -57,6 +57,7 @@ node {
     def dockerImage
     withEnv(["DOCKER_CREDS=credentials('dockerregistry-login')"]) {
         stage('publish docker') {
+            echo "user=$DOCKER_CREDS_USR pass=$DOCKER_CREDS_PSW";
             sh "./mvnw -X -ntp jib:build"
         }
     }
