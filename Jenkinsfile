@@ -53,11 +53,18 @@ node {
     }
 
     def dockerImage
+    def BUILD_DATE = sh(script: "echo `date +%s`", returnStdout: true).trim()
     stage('publish docker') {
         withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
             sh "printenv"
             sh "echo \"docker registry user = ${env.DOCKER_REGISTRY_USER}\""
-            sh "./mvnw -X -ntp jib:build"
+            sh '''
+                ./mvnw -X -ntp jib:build
+                -Dimage=dockerregistry.eigenbaumarkt.com/mesqualito/subjektiv-news:$BUILD_DATE
+                -Dimage=dockerregistry.eigenbaumarkt.com/mesqualito/subjektiv-news:latest
+                -Djib.to.auth.username=${env.DOCKER_REGISTRY_USER}
+                -Djib.to.auth.password=${env.DOCKER_REGISTRY_PWD}
+                '''
         }
     }
 }
