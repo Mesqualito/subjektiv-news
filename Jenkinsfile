@@ -53,7 +53,6 @@ node {
     }
 
     def dockerImage
-    def BUILD_DATE = sh(script: "echo `date +%s`", returnStdout: true).trim()
     stage('publish docker') {
         withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
             sh "./mvnw -ntp jib:build"        }
