@@ -52,11 +52,12 @@ node {
         }
     }
 
-    // adapted from:
-    // https://stackoverflow.com/questions/58562224/how-do-i-pass-jenkins-credentials-to-gradle
+    // see:
+    // https://stackoverflow.com/q/59661871/7773582
     def dockerImage
     withEnv(["DOCKER_CREDS=credentials('dockerregistry-login')"]) {
         stage('publish docker') {
+            sh "printenv"
             sh "echo \"user=${env.DOCKER_CREDS_USR}\"";
             sh "./mvnw -X -ntp jib:build"
         }
