@@ -55,7 +55,7 @@ node {
     // see:
     // https://stackoverflow.com/q/59661871/7773582
     def dockerImage
-    withDockerRegistry(credentialsId: 'dockerregistry-login', url: 'https://dockerregistry.eigenbaumarkt.com') {
+    withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
         stage('publish docker') {
             sh "./mvnw -X -ntp jib:build"
         }
