@@ -57,8 +57,6 @@ node {
     def dockerImage
     withDockerRegistry(credentialsId: 'dockerregistry-login', url: 'https://dockerregistry.eigenbaumarkt.com') {
         stage('publish docker') {
-            sh "printenv"
-            sh "echo \"user=${env.DOCKER_REGISTRY_USR}\"";
             sh "./mvnw -X -ntp jib:build"
         }
     }
