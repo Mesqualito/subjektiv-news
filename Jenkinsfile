@@ -55,7 +55,7 @@ node {
     // see:
     // https://stackoverflow.com/q/59661871/7773582
     def dockerImage
-    withEnv(["DOCKER_CREDS=credentials('dockerregistry-login')"]) {
+    withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USR')]) {
         stage('publish docker') {
             sh "printenv"
             sh "echo \"user=${env.DOCKER_CREDS_USR}\"";
