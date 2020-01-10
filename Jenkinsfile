@@ -52,11 +52,11 @@ node {
         }
     }
 
-    // see:
-    // https://stackoverflow.com/q/59661871/7773582
     def dockerImage
-    withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
-        stage('publish docker') {
+    stage('publish docker') {
+        withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+            sh "printenv"
+            sh "echo \"docker registry user = ${env.DOCKER_REGISTRY_USER}\""
             sh "./mvnw -X -ntp jib:build"
         }
     }
