@@ -468,8 +468,8 @@
                 <configuration>
                     <to>
                         <auth>
-                            <username>${env.DOCKER_REGISTRY_USER</username>
-                            <password>${env.DOCKER_REGISTRY_PWD}</password>
+                            <username>${DOCKER_REGISTRY_USER}</username>
+                            <password>${DOCKER_REGISTRY_PWD}</password>
                         </auth>
                     <image>dockerregistry.eigenbaumarkt.com/mesqualito/subjektiv-news</image>
                     <tags>
