@@ -471,12 +471,20 @@
                             <username>${env.DOCKER_REGISTRY_USER</username>
                             <password>${env.DOCKER_REGISTRY_PWD}</password>
                         </auth>
-                    <image>dockerregistry.eigenbaumarkt.com:443/mesqualito/subjektiv-news</image>
+                    <image>dockerregistry.eigenbaumarkt.com/mesqualito/subjektiv-news</image>
                     <tags>
                         <tag>${maven.build.timestamp}</tag>
                         <tag>latest</tag>
                     </tags>
                     </to>
+                    <container>
+                        <jvmFlags>
+                            <jvmFlag>-Xms512m</jvmFlag>
+                            <jvmFlag>-Xmx1G</jvmFlag>
+                            <jvmFlag>-Xdebug</jvmFlag>
+                        </jvmFlags>
+                        <mainClass>de.subjektiv_news.SubjektivApp</mainClass>
+                    </container>
                 </configuration>
             </plugin>
             <plugin>
