@@ -55,6 +55,7 @@ node {
     def dockerImage
     stage('publish docker') {
         withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+            sh "ping -c 3 dockerregistry.eigenbaumarkt.com"
             sh "./mvnw -ntp jib:build"        }
     }
 }
