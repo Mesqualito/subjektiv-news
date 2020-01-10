@@ -58,8 +58,11 @@ node {
         withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
             sh "printenv"
             sh "echo \"docker registry user = ${env.DOCKER_REGISTRY_USER}\""
-            sh "ping -c 3 dockerregistry.eigenbaumarkt.com"
+            sh "echo \"213.133.103.43 dockerregistry.eigenbaumarkt.com\" >> /etc/hosts"
+            sh "ping -c 3 https://dockerregistry.eigenbaumarkt.com"
             sh "./mvnw -X -ntp jib:build"
+            sh "sed -i '\$ d' /etc/hosts"
+            sh "ping -c 3 https://dockerregistry.eigenbaumarkt.com"
         }
     }
 }
