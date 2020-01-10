@@ -58,8 +58,7 @@ node {
         withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
             sh "printenv"
             sh "echo \"docker registry user = ${env.DOCKER_REGISTRY_USER}\""
-            sh "./mvnw -X -ntp jib:build -Dimage=dockerregistry.eigenbaumarkt.com/mesqualito/subjektiv-news:$BUILD_DATE -Dimage=dockerregistry.eigenbaumarkt.com/mesqualito/subjektiv-news:latest"
-
+            sh "./mvnw -X -ntp jib:build"
         }
     }
 }
