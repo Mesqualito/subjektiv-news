@@ -58,7 +58,7 @@ node {
     withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USR')]) {
         stage('publish docker') {
             sh "printenv"
-            sh "echo \"user=${env.DOCKER_CREDS_USR}\"";
+            sh "echo \"user=${env.DOCKER_REGISTRY_USR}\"";
             sh "./mvnw -X -ntp jib:build"
         }
     }
