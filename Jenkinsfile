@@ -29,7 +29,7 @@ node {
         stage('backend tests') {
             try {
                 sh "./mvnw -ntp verify"
-            } catch(err) {
+            } catch (err) {
                 throw err
             } finally {
                 junit '**/target/test-results/**/TEST-*.xml'
@@ -39,7 +39,7 @@ node {
         stage('frontend tests') {
             try {
                 sh "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test'"
-            } catch(err) {
+            } catch (err) {
                 throw err
             } finally {
                 junit '**/target/test-results/**/TEST-*.xml'
@@ -54,8 +54,7 @@ node {
 
     def dockerImage
     stage('publish docker') {
-        // A pre-requisite to this step is to setup authentication to the docker registry
-        // https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin#authentication-methods
-        sh "./mvnw -ntp jib:build"
+        withCredentials([usernamePassword(credentialsId: 'dockerregistry-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+            sh "./mvnw -ntp jib:build"        }
     }
 }
