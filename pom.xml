@@ -471,7 +471,7 @@
                             <username>${env.DOCKER_REGISTRY_USER</username>
                             <password>${env.DOCKER_REGISTRY_PWD}</password>
                         </auth>
-                    <image>213.133.103.43/mesqualito/subjektiv-news</image>
+                    <image>dockerregistry.eigenbaumarkt.com/mesqualito/subjektiv-news</image>
                     <tags>
                         <tag>${maven.build.timestamp}</tag>
                         <tag>latest</tag>
