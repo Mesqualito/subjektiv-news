@@ -36,7 +36,7 @@ public class Release implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Article> articles = new HashSet<>();
 
-    @OneToMany(mappedBy = "release")
+    @OneToMany(mappedBy = "release", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Document> documents = new HashSet<>();
 

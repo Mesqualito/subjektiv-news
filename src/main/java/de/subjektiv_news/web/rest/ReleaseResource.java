@@ -1,7 +1,9 @@
 package de.subjektiv_news.web.rest;
 
+import de.subjektiv_news.domain.Document;
 import de.subjektiv_news.domain.Release;
 import de.subjektiv_news.repository.ReleaseRepository;
+import de.subjektiv_news.service.mapper.DocumentMapper;
 import de.subjektiv_news.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -15,13 +17,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing {@link de.subjektiv_news.domain.Release}.
@@ -40,8 +45,11 @@ public class ReleaseResource {
 
     private final ReleaseRepository releaseRepository;
 
-    public ReleaseResource(ReleaseRepository releaseRepository) {
+    private final DocumentMapper documentMapper;
+
+    public ReleaseResource(ReleaseRepository releaseRepository, DocumentMapper documentMapper) {
         this.releaseRepository = releaseRepository;
+        this.documentMapper = documentMapper;
     }
 
     /**
@@ -57,6 +65,22 @@ public class ReleaseResource {
         if (release.getId() != null) {
             throw new BadRequestAlertException("A new release cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Release result = releaseRepository.save(release);
+        return ResponseEntity.created(new URI("/api/releases/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PostMapping("/v2/releases")
+    public ResponseEntity<Release> createRelease(@Valid @RequestPart Release release, @RequestPart List<MultipartFile> files) throws URISyntaxException, IOException {
+        log.debug("REST request to save Release : {}", release);
+        if(release.getId() != null) {
+            throw new BadRequestAlertException("A new release cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+
+        Set<Document> documents = documentMapper.multipartFilesToDocuments(files);
+        documents.forEach(release::addDocument);
+
         Release result = releaseRepository.save(release);
         return ResponseEntity.created(new URI("/api/releases/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

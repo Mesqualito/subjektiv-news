@@ -18,6 +18,10 @@ export class DocumentService {
 
   constructor(protected http: HttpClient) {}
 
+  download(id: number): Observable<Blob> {
+    return this.http.get(`${this.resourceUrl}/${id}/$content`, { responseType: 'blob' });
+  }
+
   create(document: IDocument): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(document);
     return this.http

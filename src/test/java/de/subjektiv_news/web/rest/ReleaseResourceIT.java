@@ -4,6 +4,7 @@ import de.subjektiv_news.SubjektivNewsApp;
 import de.subjektiv_news.domain.Keyword;
 import de.subjektiv_news.domain.Release;
 import de.subjektiv_news.repository.ReleaseRepository;
+import de.subjektiv_news.service.mapper.DocumentMapper;
 import de.subjektiv_news.web.rest.errors.ExceptionTranslator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,9 @@ public class ReleaseResourceIT {
     private ReleaseRepository releaseRepository;
 
     @Autowired
+    private DocumentMapper documentMapper;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -64,7 +68,7 @@ public class ReleaseResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ReleaseResource releaseResource = new ReleaseResource(releaseRepository);
+        final ReleaseResource releaseResource = new ReleaseResource(releaseRepository, documentMapper);
         this.restReleaseMockMvc = MockMvcBuilders.standaloneSetup(releaseResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
