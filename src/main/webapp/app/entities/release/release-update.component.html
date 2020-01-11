@@ -37,6 +37,9 @@
                         <option [ngValue]="documentOption.id === editForm.get('document')!.value?.id ? editForm.get('document')!.value : documentOption" *ngFor="let documentOption of documents; trackBy: trackById">{{documentOption.id}}</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <input type="file" (change)="handleFileInput($event.target.file)" id="document" />
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

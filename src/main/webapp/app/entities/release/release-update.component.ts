@@ -20,6 +20,8 @@ export class ReleaseUpdateComponent implements OnInit {
 
   documents: IDocument[] = [];
 
+  file: File;
+
   editForm = this.fb.group({
     id: [],
     title: [],
@@ -77,13 +79,17 @@ export class ReleaseUpdateComponent implements OnInit {
     window.history.back();
   }
 
+  handleFileInput(file: File) {
+    this.file = file;
+  }
+
   save(): void {
     this.isSaving = true;
     const release = this.createFromForm();
     if (release.id !== undefined) {
       this.subscribeToSaveResponse(this.releaseService.update(release));
     } else {
-      this.subscribeToSaveResponse(this.releaseService.create(release));
+      this.subscribeToSaveResponse(this.releaseService.createV2(release, this.file));
     }
   }
 

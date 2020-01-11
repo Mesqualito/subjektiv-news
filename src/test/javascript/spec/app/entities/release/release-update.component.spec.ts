@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
@@ -46,14 +46,16 @@ describe('Component Tests', () => {
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
         const entity = new Release();
-        spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
+        const file = new File();
+        spyOn(service, 'createV2').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
+        comp.file = file;
         // WHEN
         comp.save();
         tick(); // simulate async
 
         // THEN
-        expect(service.create).toHaveBeenCalledWith(entity);
+        expect(service.createV2).toHaveBeenCalledWith(entity, file);
         expect(comp.isSaving).toEqual(false);
       }));
     });
