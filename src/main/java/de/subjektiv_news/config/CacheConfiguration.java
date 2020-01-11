@@ -42,6 +42,14 @@ public class CacheConfiguration {
             createCache(cm, de.subjektiv_news.domain.User.class.getName());
             createCache(cm, de.subjektiv_news.domain.Authority.class.getName());
             createCache(cm, de.subjektiv_news.domain.User.class.getName() + ".authorities");
+            createCache(cm, de.subjektiv_news.domain.Release.class.getName());
+            createCache(cm, de.subjektiv_news.domain.Release.class.getName() + ".articles");
+            createCache(cm, de.subjektiv_news.domain.Release.class.getName() + ".keywords");
+            createCache(cm, de.subjektiv_news.domain.Article.class.getName());
+            createCache(cm, de.subjektiv_news.domain.Keyword.class.getName());
+            createCache(cm, de.subjektiv_news.domain.Keyword.class.getName() + ".documents");
+            createCache(cm, de.subjektiv_news.domain.Document.class.getName());
+            createCache(cm, de.subjektiv_news.domain.Content.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

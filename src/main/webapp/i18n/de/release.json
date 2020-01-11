@@ -1,0 +1,26 @@
+{
+  "subjektivNewsApp": {
+    "release": {
+      "home": {
+        "title": "Releases",
+        "createLabel": "Release erstellen",
+        "createOrEditLabel": "Release erstellen oder bearbeiten",
+        "notFound": "No Releases found"
+      },
+      "created": "Release erstellt mit ID {{ param }}",
+      "updated": "Release aktualisiert mit ID {{ param }}",
+      "deleted": "Release gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Release {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Release"
+      },
+      "title": "Title",
+      "versionCount": "Version Count",
+      "document": "Document",
+      "article": "Article",
+      "keyword": "Keyword"
+    }
+  }
+}

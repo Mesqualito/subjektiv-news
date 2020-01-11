@@ -1,0 +1,68 @@
+{
+    "name": "Document",
+    "fields": [
+        {
+            "fieldName": "title",
+            "javadoc": "https:",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "publishDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "uploadTimestamp",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "numberOfPages",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fileSize",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "downloadLink",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mimeType",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "content",
+            "otherEntityRelationshipName": "document",
+            "relationshipName": "content",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "release",
+            "otherEntityRelationshipName": "document",
+            "relationshipValidateRules": "required",
+            "relationshipName": "release",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200111154923",
+    "entityTableName": "document",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

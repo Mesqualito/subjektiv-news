@@ -1,0 +1,33 @@
+{
+  "subjektivNewsApp": {
+    "document": {
+      "home": {
+        "title": "Documents",
+        "createLabel": "Create a new Document",
+        "createOrEditLabel": "Create or edit a Document",
+        "notFound": "No Documents found"
+      },
+      "created": "A new Document is created with identifier {{ param }}",
+      "updated": "A Document is updated with identifier {{ param }}",
+      "deleted": "A Document is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Document {{ id }}?"
+      },
+      "detail": {
+        "title": "Document"
+      },
+      "title": "Title",
+      "publishDate": "Publish Date",
+      "uploadTimestamp": "Upload Timestamp",
+      "numberOfPages": "Number Of Pages",
+      "fileSize": "File Size",
+      "downloadLink": "Download Link",
+      "mimeType": "Mime Type",
+      "content": "Content",
+      "release": "Release",
+      "help": {
+        "title": "https:"
+      }
+    }
+  }
+}

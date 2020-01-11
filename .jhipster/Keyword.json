@@ -1,0 +1,32 @@
+{
+    "name": "Keyword",
+    "fields": [
+        {
+            "fieldName": "words",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "release",
+            "otherEntityRelationshipName": "keyword",
+            "relationshipName": "document",
+            "otherEntityField": "word",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20200111154922",
+    "entityTableName": "keyword",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
