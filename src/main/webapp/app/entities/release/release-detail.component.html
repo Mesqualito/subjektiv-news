@@ -20,6 +20,9 @@
                     </div>
                 </dd>
             </dl>
+            <dl class="row-md jh-entity-details">
+                <dt><span><a (click)="downloadDocument(release.document)">{{release.document.title}}</a> </span></dt>
+            </dl>
 
             <button type="submit"
                     (click)="previousState()"
