@@ -3,7 +3,7 @@ package de.subjektiv_news.web.rest;
 import de.subjektiv_news.domain.Document;
 import de.subjektiv_news.repository.DocumentRepository;
 import de.subjektiv_news.web.rest.errors.BadRequestAlertException;
-
+import de.subjektiv_news.web.rest.errors.DocumentNotFoundException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -14,15 +14,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -125,6 +125,18 @@ public class DocumentResource {
         Optional<Document> document = documentRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(document);
     }
+
+    @GetMapping("/documents/{id}/$content")
+    public ResponseEntity<byte[]> getDocumentContent(@PathVariable Long id) {
+        Document document = documentRepository.findOneById(id)
+            .orElseThrow(DocumentNotFoundException::new);
+
+        return ResponseEntity.ok()
+            .contentType(MediaType.parseMediaType(document.getMimeType()))
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + document.getTitle() + "\"")
+            .body(document.retrieveContent());
+    }
+
 
     /**
      * {@code DELETE  /documents/:id} : delete the "id" document.
