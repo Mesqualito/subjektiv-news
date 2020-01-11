@@ -1,0 +1,11 @@
+version: '2'
+services:
+  subjektiv_news-postgresql:
+    image: postgres:11.6
+    # volumes:
+    #     - ~/volumes/jhipster/subjektiv_news/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=subjektiv_news
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432

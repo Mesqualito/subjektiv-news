@@ -1,0 +1,49 @@
+entity Release {
+	title String,
+    versionCount Long required
+}
+
+entity Article {
+	headline String required,
+    pageNumber Long required,
+    content TextBlob
+}
+
+entity Keyword {
+	words String required
+}
+
+entity Document {
+    /**
+    * https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
+    */
+    title String,
+    publishDate LocalDate required,
+    uploadTimestamp Instant,
+    numberOfPages Long required,
+    fileSize Long,
+    downloadLink String,
+    mimeType String
+}
+
+
+entity Content {
+	data Blob required
+}
+
+relationship OneToOne {
+	Release{document} to Document{release(id) required},
+    Document{content} to Content{document(id) required}
+}
+
+relationship ManyToMany {
+	Keyword{document(word)} to Release{keyword(word) required}
+}
+
+relationship OneToMany {
+	Release{article} to Article{release(versionCount) required}
+}
+
+// paginate Job with pagination
+paginate * with infinite-scroll
+paginate Article, Keyword with pagination
