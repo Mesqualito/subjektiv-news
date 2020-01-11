@@ -463,31 +463,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <configuration>
-                    <to>
-                        <auth>
-                            <username>${DOCKER_REGISTRY_USER}</username>
-                            <password>${DOCKER_REGISTRY_PWD}</password>
-                        </auth>
-                    <image>dockerregistry.eigenbaumarkt.com/mesqualito/subjektiv-news</image>
-                    <tags>
-                        <tag>${maven.build.timestamp}</tag>
-                        <tag>latest</tag>
-                    </tags>
-                    </to>
-                    <container>
-                        <jvmFlags>
-                            <jvmFlag>-Xms512m</jvmFlag>
-                            <jvmFlag>-Xmx1G</jvmFlag>
-                            <jvmFlag>-Xdebug</jvmFlag>
-                        </jvmFlags>
-                        <mainClass>de.subjektiv_news.SubjektivApp</mainClass>
-                    </container>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
                 <version>${properties-maven-plugin.version}</version>
@@ -601,9 +576,23 @@
                             <image>adoptopenjdk:11-jre-hotspot</image>
                         </from>
                         <to>
-                            <image>subjektiv:latest</image>
+                            <auth>
+                                <username>${DOCKER_REGISTRY_USER}</username>
+                                <password>${DOCKER_REGISTRY_PWD}</password>
+                            </auth>
+                            <image>dockerregistry.eigenbaumarkt.com/mesqualito/subjektiv-news</image>
+                            <tags>
+                                <tag>${maven.build.timestamp}</tag>
+                                <tag>latest</tag>
+                            </tags>
                         </to>
                         <container>
+                            <jvmFlags>
+                                <jvmFlag>-Xms512m</jvmFlag>
+                                <jvmFlag>-Xmx1G</jvmFlag>
+                                <jvmFlag>-Xdebug</jvmFlag>
+                            </jvmFlags>
+                            <mainClass>de.subjektiv_news.SubjektivApp</mainClass>
                             <entrypoint>
                                 <shell>bash</shell>
                                 <option>-c</option>
