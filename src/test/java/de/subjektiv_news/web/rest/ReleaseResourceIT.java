@@ -4,7 +4,6 @@ import de.subjektiv_news.SubjektivNewsApp;
 import de.subjektiv_news.domain.Keyword;
 import de.subjektiv_news.domain.Release;
 import de.subjektiv_news.repository.ReleaseRepository;
-import de.subjektiv_news.service.mapper.DocumentMapper;
 import de.subjektiv_news.web.rest.errors.ExceptionTranslator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,14 +36,11 @@ public class ReleaseResourceIT {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final Long DEFAULT_VERSION_COUNT = 1L;
-    private static final Long UPDATED_VERSION_COUNT = 2L;
+    private static final Long DEFAULT_CHRONO_ORDER_NO = 1L;
+    private static final Long UPDATED_CHRONO_ORDER_NO = 2L;
 
     @Autowired
     private ReleaseRepository releaseRepository;
-
-    @Autowired
-    private DocumentMapper documentMapper;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -68,7 +64,7 @@ public class ReleaseResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ReleaseResource releaseResource = new ReleaseResource(releaseRepository, documentMapper);
+        final ReleaseResource releaseResource = new ReleaseResource(releaseRepository);
         this.restReleaseMockMvc = MockMvcBuilders.standaloneSetup(releaseResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,7 +82,7 @@ public class ReleaseResourceIT {
     public static Release createEntity(EntityManager em) {
         Release release = new Release()
             .title(DEFAULT_TITLE)
-            .versionCount(DEFAULT_VERSION_COUNT);
+            .chronoOrderNo(DEFAULT_CHRONO_ORDER_NO);
         // Add required entity
         Keyword keyword;
         if (TestUtil.findAll(em, Keyword.class).isEmpty()) {
@@ -108,7 +104,7 @@ public class ReleaseResourceIT {
     public static Release createUpdatedEntity(EntityManager em) {
         Release release = new Release()
             .title(UPDATED_TITLE)
-            .versionCount(UPDATED_VERSION_COUNT);
+            .chronoOrderNo(UPDATED_CHRONO_ORDER_NO);
         // Add required entity
         Keyword keyword;
         if (TestUtil.findAll(em, Keyword.class).isEmpty()) {
@@ -143,7 +139,7 @@ public class ReleaseResourceIT {
         assertThat(releaseList).hasSize(databaseSizeBeforeCreate + 1);
         Release testRelease = releaseList.get(releaseList.size() - 1);
         assertThat(testRelease.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testRelease.getVersionCount()).isEqualTo(DEFAULT_VERSION_COUNT);
+        assertThat(testRelease.getChronoOrderNo()).isEqualTo(DEFAULT_CHRONO_ORDER_NO);
     }
 
     @Test
@@ -168,10 +164,10 @@ public class ReleaseResourceIT {
 
     @Test
     @Transactional
-    public void checkVersionCountIsRequired() throws Exception {
+    public void checkChronoOrderNoIsRequired() throws Exception {
         int databaseSizeBeforeTest = releaseRepository.findAll().size();
         // set the field null
-        release.setVersionCount(null);
+        release.setChronoOrderNo(null);
 
         // Create the Release, which fails.
 
@@ -196,7 +192,7 @@ public class ReleaseResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(release.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].versionCount").value(hasItem(DEFAULT_VERSION_COUNT.intValue())));
+            .andExpect(jsonPath("$.[*].chronoOrderNo").value(hasItem(DEFAULT_CHRONO_ORDER_NO.intValue())));
     }
 
     @Test
@@ -211,7 +207,7 @@ public class ReleaseResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(release.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.versionCount").value(DEFAULT_VERSION_COUNT.intValue()));
+            .andExpect(jsonPath("$.chronoOrderNo").value(DEFAULT_CHRONO_ORDER_NO.intValue()));
     }
 
     @Test
@@ -236,7 +232,7 @@ public class ReleaseResourceIT {
         em.detach(updatedRelease);
         updatedRelease
             .title(UPDATED_TITLE)
-            .versionCount(UPDATED_VERSION_COUNT);
+            .chronoOrderNo(UPDATED_CHRONO_ORDER_NO);
 
         restReleaseMockMvc.perform(put("/api/releases")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -248,7 +244,7 @@ public class ReleaseResourceIT {
         assertThat(releaseList).hasSize(databaseSizeBeforeUpdate);
         Release testRelease = releaseList.get(releaseList.size() - 1);
         assertThat(testRelease.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testRelease.getVersionCount()).isEqualTo(UPDATED_VERSION_COUNT);
+        assertThat(testRelease.getChronoOrderNo()).isEqualTo(UPDATED_CHRONO_ORDER_NO);
     }
 
     @Test

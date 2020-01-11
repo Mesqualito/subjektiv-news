@@ -5,6 +5,7 @@ import { IRelease } from 'app/shared/model/release.model';
 export interface IDocument {
   id?: number;
   title?: string;
+  version?: number;
   publishDate?: Moment;
   uploadTimestamp?: Moment;
   numberOfPages?: number;
@@ -19,6 +20,7 @@ export class Document implements IDocument {
   constructor(
     public id?: number,
     public title?: string,
+    public version?: number,
     public publishDate?: Moment,
     public uploadTimestamp?: Moment,
     public numberOfPages?: number,

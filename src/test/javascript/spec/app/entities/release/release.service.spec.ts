@@ -1,6 +1,6 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { getTestBed, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { take, map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { ReleaseService } from 'app/entities/release/release.service';
 import { IRelease, Release } from 'app/shared/model/release.model';
 
@@ -57,7 +57,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             title: 'BBBBBB',
-            versionCount: 1
+            chronoOrderNo: 1
           },
           elemDefault
         );
@@ -76,7 +76,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             title: 'BBBBBB',
-            versionCount: 1
+            chronoOrderNo: 1
           },
           elemDefault
         );

@@ -15,31 +15,21 @@
                            formControlName="title"/>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="subjektivNewsApp.release.versionCount" for="field_versionCount">Version Count</label>
-                    <input type="number" class="form-control" name="versionCount" id="field_versionCount"
-                           formControlName="versionCount"/>
-                    <div *ngIf="editForm.get('versionCount')!.invalid && (editForm.get('versionCount')!.dirty || editForm.get('versionCount')!.touched)">
+                    <label class="form-control-label" jhiTranslate="subjektivNewsApp.release.chronoOrderNo" for="field_chronoOrderNo">Chrono Order No</label>
+                    <input type="number" class="form-control" name="chronoOrderNo" id="field_chronoOrderNo"
+                           formControlName="chronoOrderNo"/>
+                    <div *ngIf="editForm.get('chronoOrderNo')!.invalid && (editForm.get('chronoOrderNo')!.dirty || editForm.get('chronoOrderNo')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('versionCount')?.errors?.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('chronoOrderNo')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.get('versionCount')?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.get('chronoOrderNo')?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="subjektivNewsApp.release.document" for="field_document">Document</label>
-                    <select class="form-control" id="field_document" name="document" formControlName="document">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="documentOption.id === editForm.get('document')!.value?.id ? editForm.get('document')!.value : documentOption" *ngFor="let documentOption of documents; trackBy: trackById">{{documentOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="file" (change)="handleFileInput($event.target.file)" id="document" />
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

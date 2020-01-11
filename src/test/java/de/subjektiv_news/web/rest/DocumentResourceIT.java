@@ -5,7 +5,6 @@ import de.subjektiv_news.domain.Document;
 import de.subjektiv_news.domain.Release;
 import de.subjektiv_news.repository.DocumentRepository;
 import de.subjektiv_news.web.rest.errors.ExceptionTranslator;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -20,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -40,6 +39,9 @@ public class DocumentResourceIT {
 
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_VERSION = 1L;
+    private static final Long UPDATED_VERSION = 2L;
 
     private static final LocalDate DEFAULT_PUBLISH_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_PUBLISH_DATE = LocalDate.now(ZoneId.systemDefault());
@@ -102,6 +104,7 @@ public class DocumentResourceIT {
     public static Document createEntity(EntityManager em) {
         Document document = new Document()
             .title(DEFAULT_TITLE)
+            .version(DEFAULT_VERSION)
             .publishDate(DEFAULT_PUBLISH_DATE)
             .uploadTimestamp(DEFAULT_UPLOAD_TIMESTAMP)
             .numberOfPages(DEFAULT_NUMBER_OF_PAGES)
@@ -129,6 +132,7 @@ public class DocumentResourceIT {
     public static Document createUpdatedEntity(EntityManager em) {
         Document document = new Document()
             .title(UPDATED_TITLE)
+            .version(UPDATED_VERSION)
             .publishDate(UPDATED_PUBLISH_DATE)
             .uploadTimestamp(UPDATED_UPLOAD_TIMESTAMP)
             .numberOfPages(UPDATED_NUMBER_OF_PAGES)
@@ -169,6 +173,7 @@ public class DocumentResourceIT {
         assertThat(documentList).hasSize(databaseSizeBeforeCreate + 1);
         Document testDocument = documentList.get(documentList.size() - 1);
         assertThat(testDocument.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testDocument.getVersion()).isEqualTo(DEFAULT_VERSION);
         assertThat(testDocument.getPublishDate()).isEqualTo(DEFAULT_PUBLISH_DATE);
         assertThat(testDocument.getUploadTimestamp()).isEqualTo(DEFAULT_UPLOAD_TIMESTAMP);
         assertThat(testDocument.getNumberOfPages()).isEqualTo(DEFAULT_NUMBER_OF_PAGES);
@@ -196,6 +201,24 @@ public class DocumentResourceIT {
         assertThat(documentList).hasSize(databaseSizeBeforeCreate);
     }
 
+
+    @Test
+    @Transactional
+    public void checkVersionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = documentRepository.findAll().size();
+        // set the field null
+        document.setVersion(null);
+
+        // Create the Document, which fails.
+
+        restDocumentMockMvc.perform(post("/api/documents")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(document)))
+            .andExpect(status().isBadRequest());
+
+        List<Document> documentList = documentRepository.findAll();
+        assertThat(documentList).hasSize(databaseSizeBeforeTest);
+    }
 
     @Test
     @Transactional
@@ -245,6 +268,7 @@ public class DocumentResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(document.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())))
             .andExpect(jsonPath("$.[*].publishDate").value(hasItem(DEFAULT_PUBLISH_DATE.toString())))
             .andExpect(jsonPath("$.[*].uploadTimestamp").value(hasItem(DEFAULT_UPLOAD_TIMESTAMP.toString())))
             .andExpect(jsonPath("$.[*].numberOfPages").value(hasItem(DEFAULT_NUMBER_OF_PAGES.intValue())))
@@ -252,7 +276,7 @@ public class DocumentResourceIT {
             .andExpect(jsonPath("$.[*].downloadLink").value(hasItem(DEFAULT_DOWNLOAD_LINK)))
             .andExpect(jsonPath("$.[*].mimeType").value(hasItem(DEFAULT_MIME_TYPE)));
     }
-    
+
     @Test
     @Transactional
     public void getDocument() throws Exception {
@@ -265,6 +289,7 @@ public class DocumentResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(document.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()))
             .andExpect(jsonPath("$.publishDate").value(DEFAULT_PUBLISH_DATE.toString()))
             .andExpect(jsonPath("$.uploadTimestamp").value(DEFAULT_UPLOAD_TIMESTAMP.toString()))
             .andExpect(jsonPath("$.numberOfPages").value(DEFAULT_NUMBER_OF_PAGES.intValue()))
@@ -295,6 +320,7 @@ public class DocumentResourceIT {
         em.detach(updatedDocument);
         updatedDocument
             .title(UPDATED_TITLE)
+            .version(UPDATED_VERSION)
             .publishDate(UPDATED_PUBLISH_DATE)
             .uploadTimestamp(UPDATED_UPLOAD_TIMESTAMP)
             .numberOfPages(UPDATED_NUMBER_OF_PAGES)
@@ -312,6 +338,7 @@ public class DocumentResourceIT {
         assertThat(documentList).hasSize(databaseSizeBeforeUpdate);
         Document testDocument = documentList.get(documentList.size() - 1);
         assertThat(testDocument.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testDocument.getVersion()).isEqualTo(UPDATED_VERSION);
         assertThat(testDocument.getPublishDate()).isEqualTo(UPDATED_PUBLISH_DATE);
         assertThat(testDocument.getUploadTimestamp()).isEqualTo(UPDATED_UPLOAD_TIMESTAMP);
         assertThat(testDocument.getNumberOfPages()).isEqualTo(UPDATED_NUMBER_OF_PAGES);

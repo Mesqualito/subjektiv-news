@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="content"/>
 
+        <addForeignKeyConstraint baseColumnNames="release_id"
+                                 baseTableName="document"
+                                 constraintName="fk_document_release_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="release"/>
+
     </changeSet>
 </databaseChangeLog>

@@ -4,12 +4,9 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { IRelease, Release } from 'app/shared/model/release.model';
 import { ReleaseService } from './release.service';
-import { IDocument } from 'app/shared/model/document.model';
-import { DocumentService } from 'app/entities/document/document.service';
 
 @Component({
   selector: 'jhi-release-update',
@@ -18,51 +15,17 @@ import { DocumentService } from 'app/entities/document/document.service';
 export class ReleaseUpdateComponent implements OnInit {
   isSaving = false;
 
-  documents: IDocument[] = [];
-
-  file: File;
-
   editForm = this.fb.group({
     id: [],
     title: [],
-    versionCount: [null, [Validators.required]],
-    document: []
+    chronoOrderNo: [null, [Validators.required]]
   });
 
-  constructor(
-    protected releaseService: ReleaseService,
-    protected documentService: DocumentService,
-    protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+  constructor(protected releaseService: ReleaseService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ release }) => {
       this.updateForm(release);
-
-      this.documentService
-        .query({ filter: 'release-is-null' })
-        .pipe(
-          map((res: HttpResponse<IDocument[]>) => {
-            return res.body ? res.body : [];
-          })
-        )
-        .subscribe((resBody: IDocument[]) => {
-          if (!release.document || !release.document.id) {
-            this.documents = resBody;
-          } else {
-            this.documentService
-              .find(release.document.id)
-              .pipe(
-                map((subRes: HttpResponse<IDocument>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: IDocument[]) => {
-                this.documents = concatRes;
-              });
-          }
-        });
     });
   }
 
@@ -70,17 +33,12 @@ export class ReleaseUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: release.id,
       title: release.title,
-      versionCount: release.versionCount,
-      document: release.document
+      chronoOrderNo: release.chronoOrderNo
     });
   }
 
   previousState(): void {
     window.history.back();
-  }
-
-  handleFileInput(file: File) {
-    this.file = file;
   }
 
   save(): void {
@@ -89,7 +47,7 @@ export class ReleaseUpdateComponent implements OnInit {
     if (release.id !== undefined) {
       this.subscribeToSaveResponse(this.releaseService.update(release));
     } else {
-      this.subscribeToSaveResponse(this.releaseService.createV2(release, this.file));
+      this.subscribeToSaveResponse(this.releaseService.create(release));
     }
   }
 
@@ -98,8 +56,7 @@ export class ReleaseUpdateComponent implements OnInit {
       ...new Release(),
       id: this.editForm.get(['id'])!.value,
       title: this.editForm.get(['title'])!.value,
-      versionCount: this.editForm.get(['versionCount'])!.value,
-      document: this.editForm.get(['document'])!.value
+      chronoOrderNo: this.editForm.get(['chronoOrderNo'])!.value
     };
   }
 
@@ -117,9 +74,5 @@ export class ReleaseUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
-  }
-
-  trackById(index: number, item: IDocument): any {
-    return item.id;
   }
 }

@@ -1,9 +1,7 @@
 package de.subjektiv_news.web.rest;
 
-import de.subjektiv_news.domain.Document;
 import de.subjektiv_news.domain.Release;
 import de.subjektiv_news.repository.ReleaseRepository;
-import de.subjektiv_news.service.mapper.DocumentMapper;
 import de.subjektiv_news.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -17,11 +15,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -43,11 +39,9 @@ public class ReleaseResource {
     private String applicationName;
 
     private final ReleaseRepository releaseRepository;
-    private final DocumentMapper documentMapper;
 
-    public ReleaseResource(ReleaseRepository releaseRepository, DocumentMapper documentMapper) {
+    public ReleaseResource(ReleaseRepository releaseRepository) {
         this.releaseRepository = releaseRepository;
-        this.documentMapper = documentMapper;
     }
 
     /**
@@ -68,23 +62,6 @@ public class ReleaseResource {
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
-
-    @PostMapping("/v2/releases")
-    public ResponseEntity<Release> createRelease(@Valid @RequestPart Release release, @RequestPart MultipartFile file) throws URISyntaxException, IOException {
-        log.debug("REST request to save Release : {}", release);
-        if(release.getId() != null){
-            throw new BadRequestAlertException("A new release cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-
-        Document document = documentMapper.multipartFileToDocument(file);
-        release.setDocument(document);
-
-        Release result = releaseRepository.save(release);
-        return ResponseEntity.created(new URI("/api/releases" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-
 
     /**
      * {@code PUT  /releases} : Updates an existing release.

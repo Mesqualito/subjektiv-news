@@ -6,7 +6,7 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "versionCount",
+            "fieldName": "chronoOrderNo",
             "fieldType": "Long",
             "fieldValidateRules": [
                 "required"
@@ -15,18 +15,16 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "document",
-            "otherEntityRelationshipName": "release",
-            "relationshipName": "document",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
             "relationshipType": "one-to-many",
             "otherEntityName": "article",
             "otherEntityRelationshipName": "release",
             "relationshipName": "article"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "document",
+            "otherEntityRelationshipName": "release",
+            "relationshipName": "document"
         },
         {
             "relationshipType": "many-to-many",

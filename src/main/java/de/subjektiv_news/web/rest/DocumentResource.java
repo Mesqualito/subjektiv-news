@@ -3,7 +3,6 @@ package de.subjektiv_news.web.rest;
 import de.subjektiv_news.domain.Document;
 import de.subjektiv_news.repository.DocumentRepository;
 import de.subjektiv_news.web.rest.errors.BadRequestAlertException;
-import de.subjektiv_news.web.rest.errors.DocumentNotFoundException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -13,8 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +22,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing {@link de.subjektiv_news.domain.Document}.
@@ -95,18 +90,10 @@ public class DocumentResource {
 
      * @param pageable the pagination information.
 
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of documents in body.
      */
     @GetMapping("/documents")
-    public ResponseEntity<List<Document>> getAllDocuments(Pageable pageable, @RequestParam(required = false) String filter) {
-        if ("release-is-null".equals(filter)) {
-            log.debug("REST request to get all Documents where release is null");
-            return new ResponseEntity<>(StreamSupport
-                .stream(documentRepository.findAll().spliterator(), false)
-                .filter(document -> document.getRelease() == null)
-                .collect(Collectors.toList()), HttpStatus.OK);
-        }
+    public ResponseEntity<List<Document>> getAllDocuments(Pageable pageable) {
         log.debug("REST request to get a page of Documents");
         Page<Document> page = documentRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
@@ -125,18 +112,6 @@ public class DocumentResource {
         Optional<Document> document = documentRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(document);
     }
-
-    @GetMapping("/documents/{id}/$content")
-    public ResponseEntity<byte[]> getDocumentContent(@PathVariable Long id) {
-        Document document = documentRepository.findOneById(id)
-            .orElseThrow(DocumentNotFoundException::new);
-
-        return ResponseEntity.ok()
-            .contentType(MediaType.parseMediaType(document.getMimeType()))
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + document.getTitle() + "\"")
-            .body(document.retrieveContent());
-    }
-
 
     /**
      * {@code DELETE  /documents/:id} : delete the "id" document.

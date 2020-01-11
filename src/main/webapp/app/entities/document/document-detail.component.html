@@ -9,6 +9,10 @@
                 <dd>
                     <span>{{document.title}}</span>
                 </dd>
+                <dt><span jhiTranslate="subjektivNewsApp.document.version">Version</span></dt>
+                <dd>
+                    <span>{{document.version}}</span>
+                </dd>
                 <dt><span jhiTranslate="subjektivNewsApp.document.publishDate">Publish Date</span></dt>
                 <dd>
                     <span>{{document.publishDate}}</span>
@@ -37,6 +41,12 @@
                 <dd>
                     <div *ngIf="document.content">
                         <a [routerLink]="['/content', document.content?.id, 'view']">{{document.content?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="subjektivNewsApp.document.release">Release</span></dt>
+                <dd>
+                    <div *ngIf="document.release">
+                        <a [routerLink]="['/release', document.release?.id, 'view']">{{document.release?.id}}</a>
                     </div>
                 </dd>
             </dl>

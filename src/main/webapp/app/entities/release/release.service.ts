@@ -12,24 +12,11 @@ type EntityArrayResponseType = HttpResponse<IRelease[]>;
 @Injectable({ providedIn: 'root' })
 export class ReleaseService {
   public resourceUrl = SERVER_API_URL + 'api/releases';
-  public resourceUrlV2 = SERVER_API_URL + 'api/v2/releases';
 
   constructor(protected http: HttpClient) {}
 
   create(release: IRelease): Observable<EntityResponseType> {
     return this.http.post<IRelease>(this.resourceUrl, release, { observe: 'response' });
-  }
-
-  createV2(release: IRelease, file: File): Observable<EntityResponseType> {
-    const releaseMultipartFormParam = 'release';
-    const fileMultipartFormParam = 'file';
-    const formData: FormData = new FormData();
-    const releaseAsJsonBlob: Blob = new Blob([JSON.stringify(release)], { type: 'application/json' });
-
-    formData.append(releaseMultipartFormParam, releaseAsJsonBlob);
-    formData.append(fileMultipartFormParam, file);
-
-    return this.http.post<IRelease>(this.resourceUrlV2, formData, { observe: 'response' });
   }
 
   update(release: IRelease): Observable<EntityResponseType> {

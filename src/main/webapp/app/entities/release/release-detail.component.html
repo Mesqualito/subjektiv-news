@@ -9,19 +9,10 @@
                 <dd>
                     <span>{{release.title}}</span>
                 </dd>
-                <dt><span jhiTranslate="subjektivNewsApp.release.versionCount">Version Count</span></dt>
+                <dt><span jhiTranslate="subjektivNewsApp.release.chronoOrderNo">Chrono Order No</span></dt>
                 <dd>
-                    <span>{{release.versionCount}}</span>
+                    <span>{{release.chronoOrderNo}}</span>
                 </dd>
-                <dt><span jhiTranslate="subjektivNewsApp.release.document">Document</span></dt>
-                <dd>
-                    <div *ngIf="release.document">
-                        <a [routerLink]="['/document', release.document?.id, 'view']">{{release.document?.id}}</a>
-                    </div>
-                </dd>
-            </dl>
-            <dl class="row-md jh-entity-details">
-                <dt><span><a (click)="downloadDocument(release.document)">{{release.document.title}}</a> </span></dt>
             </dl>
 
             <button type="submit"

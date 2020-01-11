@@ -29,16 +29,16 @@ public class Release implements Serializable {
     private String title;
 
     @NotNull
-    @Column(name = "version_count", nullable = false)
-    private Long versionCount;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(unique = true)
-    private Document document;
+    @Column(name = "chrono_order_no", nullable = false)
+    private Long chronoOrderNo;
 
     @OneToMany(mappedBy = "release")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Article> articles = new HashSet<>();
+
+    @OneToMany(mappedBy = "release")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Document> documents = new HashSet<>();
 
     @ManyToMany(mappedBy = "documents")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -67,30 +67,17 @@ public class Release implements Serializable {
         this.title = title;
     }
 
-    public Long getVersionCount() {
-        return versionCount;
+    public Long getChronoOrderNo() {
+        return chronoOrderNo;
     }
 
-    public Release versionCount(Long versionCount) {
-        this.versionCount = versionCount;
+    public Release chronoOrderNo(Long chronoOrderNo) {
+        this.chronoOrderNo = chronoOrderNo;
         return this;
     }
 
-    public void setVersionCount(Long versionCount) {
-        this.versionCount = versionCount;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    public Release document(Document document) {
-        this.document = document;
-        return this;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
+    public void setChronoOrderNo(Long chronoOrderNo) {
+        this.chronoOrderNo = chronoOrderNo;
     }
 
     public Set<Article> getArticles() {
@@ -116,6 +103,31 @@ public class Release implements Serializable {
 
     public void setArticles(Set<Article> articles) {
         this.articles = articles;
+    }
+
+    public Set<Document> getDocuments() {
+        return documents;
+    }
+
+    public Release documents(Set<Document> documents) {
+        this.documents = documents;
+        return this;
+    }
+
+    public Release addDocument(Document document) {
+        this.documents.add(document);
+        document.setRelease(this);
+        return this;
+    }
+
+    public Release removeDocument(Document document) {
+        this.documents.remove(document);
+        document.setRelease(null);
+        return this;
+    }
+
+    public void setDocuments(Set<Document> documents) {
+        this.documents = documents;
     }
 
     public Set<Keyword> getKeywords() {
@@ -165,7 +177,7 @@ public class Release implements Serializable {
         return "Release{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
-            ", versionCount=" + getVersionCount() +
+            ", chronoOrderNo=" + getChronoOrderNo() +
             "}";
     }
 }

@@ -17,6 +17,7 @@
         "title": "Document"
       },
       "title": "Title",
+      "version": "Version",
       "publishDate": "Publish Date",
       "uploadTimestamp": "Upload Timestamp",
       "numberOfPages": "Number Of Pages",

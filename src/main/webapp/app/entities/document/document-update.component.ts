@@ -8,10 +8,14 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
-import { IDocument, Document } from 'app/shared/model/document.model';
+import { Document, IDocument } from 'app/shared/model/document.model';
 import { DocumentService } from './document.service';
 import { IContent } from 'app/shared/model/content.model';
 import { ContentService } from 'app/entities/content/content.service';
+import { IRelease } from 'app/shared/model/release.model';
+import { ReleaseService } from 'app/entities/release/release.service';
+
+type SelectableEntity = IContent | IRelease;
 
 @Component({
   selector: 'jhi-document-update',
@@ -21,23 +25,28 @@ export class DocumentUpdateComponent implements OnInit {
   isSaving = false;
 
   contents: IContent[] = [];
+
+  releases: IRelease[] = [];
   publishDateDp: any;
 
   editForm = this.fb.group({
     id: [],
     title: [],
+    version: [null, [Validators.required]],
     publishDate: [null, [Validators.required]],
     uploadTimestamp: [],
     numberOfPages: [null, [Validators.required]],
     fileSize: [],
     downloadLink: [],
     mimeType: [],
-    content: []
+    content: [],
+    release: [null, Validators.required]
   });
 
   constructor(
     protected documentService: DocumentService,
     protected contentService: ContentService,
+    protected releaseService: ReleaseService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -69,6 +78,15 @@ export class DocumentUpdateComponent implements OnInit {
               });
           }
         });
+
+      this.releaseService
+        .query()
+        .pipe(
+          map((res: HttpResponse<IRelease[]>) => {
+            return res.body ? res.body : [];
+          })
+        )
+        .subscribe((resBody: IRelease[]) => (this.releases = resBody));
     });
   }
 
@@ -76,13 +94,15 @@ export class DocumentUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: document.id,
       title: document.title,
+      version: document.version,
       publishDate: document.publishDate,
       uploadTimestamp: document.uploadTimestamp != null ? document.uploadTimestamp.format(DATE_TIME_FORMAT) : null,
       numberOfPages: document.numberOfPages,
       fileSize: document.fileSize,
       downloadLink: document.downloadLink,
       mimeType: document.mimeType,
-      content: document.content
+      content: document.content,
+      release: document.release
     });
   }
 
@@ -105,6 +125,7 @@ export class DocumentUpdateComponent implements OnInit {
       ...new Document(),
       id: this.editForm.get(['id'])!.value,
       title: this.editForm.get(['title'])!.value,
+      version: this.editForm.get(['version'])!.value,
       publishDate: this.editForm.get(['publishDate'])!.value,
       uploadTimestamp:
         this.editForm.get(['uploadTimestamp'])!.value != null
@@ -114,7 +135,8 @@ export class DocumentUpdateComponent implements OnInit {
       fileSize: this.editForm.get(['fileSize'])!.value,
       downloadLink: this.editForm.get(['downloadLink'])!.value,
       mimeType: this.editForm.get(['mimeType'])!.value,
-      content: this.editForm.get(['content'])!.value
+      content: this.editForm.get(['content'])!.value,
+      release: this.editForm.get(['release'])!.value
     };
   }
 
@@ -134,7 +156,7 @@ export class DocumentUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: IContent): any {
+  trackById(index: number, item: SelectableEntity): any {
     return item.id;
   }
 }

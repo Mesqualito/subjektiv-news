@@ -7,6 +7,13 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "version",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
             "fieldName": "publishDate",
             "fieldType": "LocalDate",
             "fieldValidateRules": [
@@ -47,12 +54,12 @@
             "ownerSide": true
         },
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "otherEntityName": "release",
             "otherEntityRelationshipName": "document",
             "relationshipValidateRules": "required",
             "relationshipName": "release",
-            "ownerSide": false
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20200111154923",

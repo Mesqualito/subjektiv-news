@@ -17,9 +17,9 @@
         "title": "Release"
       },
       "title": "Title",
-      "versionCount": "Version Count",
-      "document": "Document",
+      "chronoOrderNo": "Chrono Order No",
       "article": "Article",
+      "document": "Document",
       "keyword": "Keyword"
     }
   }

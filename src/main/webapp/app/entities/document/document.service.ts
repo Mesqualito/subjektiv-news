@@ -49,10 +49,6 @@ export class DocumentService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  download(id: number): Observable<Blob> {
-    return this.http.get(`${this.resourceUrl}/${id}/$content`, { responseType: 'blob' });
-  }
-
   protected convertDateFromClient(document: IDocument): IDocument {
     const copy: IDocument = Object.assign({}, document, {
       publishDate: document.publishDate && document.publishDate.isValid() ? document.publishDate.format(DATE_FORMAT) : undefined,

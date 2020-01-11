@@ -20,6 +20,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="title"><span jhiTranslate="subjektivNewsApp.document.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="version"><span jhiTranslate="subjektivNewsApp.document.version">Version</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="publishDate"><span jhiTranslate="subjektivNewsApp.document.publishDate">Publish Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="uploadTimestamp"><span jhiTranslate="subjektivNewsApp.document.uploadTimestamp">Upload Timestamp</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="numberOfPages"><span jhiTranslate="subjektivNewsApp.document.numberOfPages">Number Of Pages</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -27,6 +28,7 @@
             <th scope="col"  jhiSortBy="downloadLink"><span jhiTranslate="subjektivNewsApp.document.downloadLink">Download Link</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="mimeType"><span jhiTranslate="subjektivNewsApp.document.mimeType">Mime Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="content.id"><span jhiTranslate="subjektivNewsApp.document.content">Content</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="release.id"><span jhiTranslate="subjektivNewsApp.document.release">Release</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -34,6 +36,7 @@
             <tr *ngFor="let document of documents ;trackBy: trackId">
                 <td><a [routerLink]="['/document', document.id, 'view' ]">{{document.id}}</a></td>
                 <td>{{document.title}}</td>
+                <td>{{document.version}}</td>
                 <td>{{document.publishDate | date:'mediumDate'}}</td>
                 <td>{{document.uploadTimestamp | date:'medium'}}</td>
                 <td>{{document.numberOfPages}}</td>
@@ -43,6 +46,11 @@
                 <td>
                     <div *ngIf="document.content">
                         <a [routerLink]="['/content', document.content?.id, 'view' ]" >{{document.content?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="document.release">
+                        <a [routerLink]="['/release', document.release?.id, 'view' ]" >{{document.release?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

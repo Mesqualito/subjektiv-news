@@ -1,10 +1,10 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { getTestBed, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { take, map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { DocumentService } from 'app/entities/document/document.service';
-import { IDocument, Document } from 'app/shared/model/document.model';
+import { Document, IDocument } from 'app/shared/model/document.model';
 
 describe('Service Tests', () => {
   describe('Document Service', () => {
@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Document(0, 'AAAAAAA', currentDate, currentDate, 0, 0, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Document(0, 'AAAAAAA', 0, currentDate, currentDate, 0, 0, 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -75,6 +75,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             title: 'BBBBBB',
+            version: 1,
             publishDate: currentDate.format(DATE_FORMAT),
             uploadTimestamp: currentDate.format(DATE_TIME_FORMAT),
             numberOfPages: 1,
@@ -105,6 +106,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             title: 'BBBBBB',
+            version: 1,
             publishDate: currentDate.format(DATE_FORMAT),
             uploadTimestamp: currentDate.format(DATE_TIME_FORMAT),
             numberOfPages: 1,

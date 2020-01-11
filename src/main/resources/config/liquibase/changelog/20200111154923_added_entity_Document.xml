@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
-                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    
+
     <!--
         Added the entity Document.
     -->
@@ -17,6 +15,9 @@
             </column>
             <column name="title" type="varchar(255)" remarks="https:">
                 <constraints nullable="true" />
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false" />
             </column>
             <column name="publish_date" type="date">
                 <constraints nullable="false" />
@@ -38,6 +39,9 @@
             </column>
             <column name="content_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_document_content_id" />
+            </column>
+            <column name="release_id" type="bigint">
+                <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
@@ -64,12 +68,14 @@
                   tableName="document">
             <column name="id" type="numeric"/>
             <column name="title" type="string"/>
+            <column name="version" type="numeric"/>
             <column name="publish_date" type="date"/>
             <column name="upload_timestamp" type="datetime"/>
             <column name="number_of_pages" type="numeric"/>
             <column name="file_size" type="numeric"/>
             <column name="download_link" type="string"/>
             <column name="mime_type" type="string"/>
+            <column name="release_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

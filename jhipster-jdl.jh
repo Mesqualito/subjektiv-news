@@ -1,6 +1,6 @@
 entity Release {
 	title String,
-    versionCount Long required
+    chronoOrderNo Long required
 }
 
 entity Article {
@@ -18,6 +18,7 @@ entity Document {
     * https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
     */
     title String,
+    version Long required,
     publishDate LocalDate required,
     uploadTimestamp Instant,
     numberOfPages Long required,
@@ -32,7 +33,6 @@ entity Content {
 }
 
 relationship OneToOne {
-	Release{document} to Document{release(id) required},
     Document{content} to Content{document(id) required}
 }
 
@@ -41,7 +41,8 @@ relationship ManyToMany {
 }
 
 relationship OneToMany {
-	Release{article} to Article{release(versionCount) required}
+	Release{article} to Article{release(versionCount) required},
+    Release{document} to Document{release(id) required}
 }
 
 // paginate Job with pagination

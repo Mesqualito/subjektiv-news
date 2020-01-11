@@ -46,16 +46,14 @@ describe('Component Tests', () => {
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
         const entity = new Release();
-        const file = new File();
-        spyOn(service, 'createV2').and.returnValue(of(new HttpResponse({ body: entity })));
+        spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
-        comp.file = file;
         // WHEN
         comp.save();
         tick(); // simulate async
 
         // THEN
-        expect(service.createV2).toHaveBeenCalledWith(entity, file);
+        expect(service.create).toHaveBeenCalledWith(entity);
         expect(comp.isSaving).toEqual(false);
       }));
     });
