@@ -14,7 +14,7 @@ import { ReleaseService } from './release.service';
 })
 export class ReleaseUpdateComponent implements OnInit {
   isSaving = false;
-  files: FileList;
+  files: FileList = new FileList();
 
   editForm = this.fb.group({
     id: [],
@@ -42,7 +42,7 @@ export class ReleaseUpdateComponent implements OnInit {
     window.history.back();
   }
 
-  handleFileInput(files: FileList) {
+  handleFileInput(files: FileList): void {
     this.files = files;
   }
 

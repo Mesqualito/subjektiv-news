@@ -1,0 +1,86 @@
+application {
+  config {
+    databaseType sql
+    devDatabaseType h2Disk
+    enableHibernateCache true
+    enableSwaggerCodegen false
+    enableTranslation true
+    jhiPrefix jhi
+    languages [de, en]
+    messageBroker false
+    nativeLanguage de
+    packageName de.subjektiv_news
+    packageFolder de/subjektiv_news
+    prodDatabaseType postgresql
+    searchEngine false
+    serviceDiscoveryType false
+    skipClient false
+    skipServer false
+    testFrameworks []
+    websocket false
+    jhipsterVersion 6.6.0
+    applicationType monolith
+    baseName subjektiv_news
+    serverPort 8080
+    authenticationType jwt
+    cacheProvider ehcache
+    buildTool maven
+    jwtSecretKey MWY2Nzc3OTk5ZDNkZTBlZmNhZTk4NzgzOTFiN2YxZDk0OWE2Mjc2Njc0YWNkYjdlYzY1ZGJkMTkxYWUwMDUxZjVkNjk5MjU5ZmZiZThjMjBkZGViMTBjOWNkMjY3ZDA3NjFiM2ZlZDBlZjkyMWYzMDgzNGYwYTBiMGI4ZDA0MzI=
+    embeddableLaunchScript false
+    useSass true
+    clientPackageManager npm
+    clientFramework angularX
+    clientTheme none
+    clientThemeVariant 
+    creationTimestamp 1578757640206
+    entitySuffix 
+    dtoSuffix DTO
+    otherModules []
+    blueprints 
+    skipUserManagement false
+  }
+
+  entities Article, Content, Document, Keyword, Release
+}
+
+entity Article {
+  headline String required,
+  pageNumber Long required,
+  content TextBlob
+}
+entity Content {
+  data AnyBlob required
+}
+entity Document {
+  /**
+   * https:
+   */
+  title String,
+  version Long required,
+  publishDate LocalDate required,
+  uploadTimestamp Instant,
+  numberOfPages Long required,
+  fileSize Long,
+  downloadLink String,
+  mimeType String
+}
+entity Keyword {
+  words String required
+}
+entity Release {
+  title String,
+  chronoOrderNo Long required
+}
+relationship OneToOne {
+  Document{content} to Content{document required}
+}
+relationship OneToMany {
+  Release{article} to Article{release(versionCount) required},
+  Release{document} to Document{release required}
+}
+relationship ManyToMany {
+  Keyword{document(word)} to Release{keyword(word) required}
+}
+
+paginate Article, Keyword with pagination
+paginate Content, Document, Release with infinite-scroll

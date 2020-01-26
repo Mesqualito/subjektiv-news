@@ -28,7 +28,7 @@ export class ReleaseService {
 
     formData.append(releaseMultipartFormParam, releaseAsJsonBlob);
     for (let i = 0; i < files.length; i++) {
-      formData.append(filesMultipartFormParam, files.item(i));
+      formData.append(filesMultipartFormParam, files.item(i) || '{}');
     }
 
     return this.http.post<IRelease>(this.resourceUrlV2, formData, { observe: 'response' });

@@ -25,9 +25,11 @@ export class ReleaseDetailComponent implements OnInit {
     window.history.back();
   }
 
-  downloadDocument(document: IDocument) {
-    this.documentService.download(document.id).subscribe(file => {
-      FileSaver.saveAs(file, document.title);
-    });
+  downloadDocument(document: IDocument): void {
+    if (document.id != null) {
+      this.documentService.download(document.id).subscribe(file => {
+        FileSaver.saveAs(file, document.title);
+      });
+    }
   }
 }

@@ -7,8 +7,8 @@
         Added the constraints for entity Release.
     -->
     <changeSet id="20200111154920-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="document_id"
+
+        <addForeignKeyConstraint baseColumnNames="id"
                                  baseTableName="release"
                                  constraintName="fk_release_document_id"
                                  referencedColumnNames="id"
