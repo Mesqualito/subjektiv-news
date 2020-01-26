@@ -32,7 +32,7 @@ public class Release implements Serializable {
     @Column(name = "chrono_order_no", nullable = false)
     private Long chronoOrderNo;
 
-    @OneToMany(mappedBy = "release")
+    @OneToMany(mappedBy = "article")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Article> articles = new HashSet<>();
 
