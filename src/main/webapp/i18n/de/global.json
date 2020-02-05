@@ -7,11 +7,11 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entitäten",
-        "release": "Release",
         "article": "Article",
-        "keyword": "Keyword",
-        "document": "Document",
         "content": "Content",
+        "document": "Document",
+        "keyword": "Keyword",
+        "release": "Release",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

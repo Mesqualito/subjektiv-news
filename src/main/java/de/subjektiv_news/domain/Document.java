@@ -186,17 +186,6 @@ public class Document implements Serializable {
         return this;
     }
 
-    // see: https://blog.ippon.tech/create-a-simple-file-storage-through-database-with-jhipster
-    /*
-    public Content getContent() {
-        return content;
-    }
-
-    public void setContent(Content content) {
-        this.content = content;
-    }
-
-     */
     public void addContent(byte[] data) {
         Content content = new Content();
         content.setData(data);

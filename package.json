@@ -23,7 +23,6 @@
     "@ngx-translate/http-loader": "4.0.0",
     "bootstrap": "4.4.1",
     "core-js": "3.5.0",
-    "file-saver": "^2.0.2",
     "moment": "2.24.0",
     "ng-jhipster": "0.11.5",
     "ngx-cookie": "4.0.2",
@@ -32,7 +31,8 @@
     "rxjs": "6.5.3",
     "swagger-ui-dist": "3.24.3",
     "tslib": "1.10.0",
-    "zone.js": "0.10.2"
+    "zone.js": "0.10.2",
+    "file-saver": "latest"
   },
   "devDependencies": {
     "@angular/cli": "8.3.20",

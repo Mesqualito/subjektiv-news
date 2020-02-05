@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,8 +12,8 @@ import { ReleaseService } from './release.service';
   templateUrl: './release-update.component.html'
 })
 export class ReleaseUpdateComponent implements OnInit {
+  files!: FileList;
   isSaving = false;
-  files: FileList = new FileList();
 
   editForm = this.fb.group({
     id: [],
