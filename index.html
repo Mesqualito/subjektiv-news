@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>subjektiv!</title>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="top">
+        <header class="title">
+            <h1>subjektiv!</h1>
+            <p>kompromislos trampeln</p>
+        </header>
+        <div class="campaign campaign1">
+            <p class="price">Free</p>
+            <p>Download</p>
+        </div>
+        <div class="campaign campaign2">
+            <p class="price">€ 8,00</p>
+            <p>Druckausgabe 4C<br>inklusive Versand innerhalb Deutschlands und MWSt.</p>
+        </div>
+    </div>
+    <nav class="menu">
+        <button aria-expanded="false" aria-controls="menu-list">
+            <span class="open">☰</span>
+            <span class="close">x</span>
+            Menü
+        </button>
+        <ul id="menu-list">
+            <li><a href="index.html">Startseite</a></li>
+            <li><a href="pages/archiv.html">Archiv</a></li>
+            <li><a href="pages/download.html">Downloads</a></li>
+            <li><a href="pages/impressum.html">Impressum</a></li>
+        </ul>
+    </nav>
+    <section class="features">
+        <div class="feature">
+            <span class="icon">🌮</span>
+            <h3>Tacos</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, assumenda.</p>
+        </div>
+        <div class="feature">
+            <span class="icon">🍺</span>
+            <h3>Beer</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, assumenda.</p>
+        </div>
+        <div class="feature">
+            <span class="icon">🍷</span>
+            <h3>Wine</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, assumenda.</p>
+        </div>
+        <div class="feature">
+            <span class="icon">🎵</span>
+            <h3>Music</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, assumenda.</p>
+        </div>
+    </section>
+
+    <section class="about">
+        <img src="images/schoepfung.jpg" alt="Yummy Taco" class="about__mockup">
+        <div class="about__details">
+            <h2>Featured Taco</h2>
+            <p>Slim Profile, easy to hold and loaded with cheese.</p>
+            <p>This is the one you have been waiting for</p>
+            <button>Learn More →</button>
+        </div>
+    </section>
+
+
+    <section class="gallery">
+        <h2>Instant Grams</h2>
+        <img src="https://source.unsplash.com/random/201x201" alt="">
+        <img src="https://source.unsplash.com/random/202x202" alt="">
+        <img src="https://source.unsplash.com/random/203x203" alt="">
+        <img src="https://source.unsplash.com/random/204x204" alt="">
+        <img src="https://source.unsplash.com/random/205x205" alt="">
+        <img src="https://source.unsplash.com/random/206x206" alt="">
+        <img src="https://source.unsplash.com/random/207x207" alt="">
+        <img src="https://source.unsplash.com/random/207x208" alt="">
+        <img src="https://source.unsplash.com/random/207x209" alt="">
+        <img src="https://source.unsplash.com/random/207x210" alt="">
+    </section>
+</div>
+
+<script>
+    const navButton = document.querySelector('button[aria-expanded]');
+
+    function toggleNav({target}) {
+        const expanded = target.getAttribute('aria-expanded') === 'true' || false;
+        navButton.setAttribute('aria-expanded', !expanded);
+    }
+
+    navButton.addEventListener('click', toggleNav);
+
+</script>
+</body>
+</html>

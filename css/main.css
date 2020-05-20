@@ -1,0 +1,225 @@
+@import "basic.css";
+
+.wrapper {
+    display: grid;
+    grid-gap: 20px;
+}
+
+.top {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-areas:
+            "title title campaign1"
+            "title title campaign2"
+}
+
+.title {
+    grid-area: title;
+    min-height: 400px;
+    background-size: cover;
+    background: white url("../images/Laser.gif") bottom right;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.title > * {
+    background: var(--red);
+    color: var(--yellow);
+    padding: 5px;
+}
+
+.campaign {
+    background: var(--yellow);
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.campaign p {
+    margin: 0;
+}
+
+.campaign1 {
+    grid-area: campaign1;
+}
+
+.campaign2 {
+    grid-area: campaign2;
+}
+
+.price {
+    font-size: 60px;
+    font-weight: 300;
+}
+
+/* Menü - Navigation */
+
+.menu ul {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    padding: 0;
+    list-style: none;
+}
+
+.menu a {
+    background: var(--yellow);
+    /* by default, links are as wide as they need to be regarding their link text ("inline"),
+       we want them to be as wide as the grid column: 'display: block;'
+     */
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    color: var(--black);
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+[aria-controls="menu-list"] {
+    display: none;
+}
+
+/* Features */
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.feature {
+    background: white;
+    padding: 10px;
+    border: 1px solid white;
+    text-align: center;
+    box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
+
+.feature .icon {
+    font-size: 50px;
+}
+
+.feature p {
+    color: var(--grey);
+}
+
+/* "About"-Section */
+
+.about {
+    background: white;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    align-items: center;
+}
+
+/* Gallery */
+
+.gallery {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.gallery img {
+    width: 100%;
+}
+
+
+.gallery h2 {
+    grid-column: 1/ -1;
+    /* ':before' and ':after' are considered as grid items,
+       we use it for the yellow fade-in / fade-out bar inside the 'h2'-tag!
+     */
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-gap: 20px;
+    align-items: center;
+}
+/* we have 3 css-grid items in '.gallery h2': 'h2:before', 'h2' itself and 'h2:after' ! */
+.gallery h2:before, .gallery h2:after {
+    display: block;
+    content: '';
+    height: 10px;
+    background: linear-gradient(to var(--gradient-direction, left), var(--yellow), transparent);
+}
+
+.gallery h2:after {
+    --gradient-direction: right;
+}
+
+@media (max-width: 1000px) {
+    .menu {
+        /* grid css: put at the most top row: */
+        order: -1;
+        /* for a nice menu transform; see '[aria-expanded="true"] ~ ul' */
+        perspective: 800px;
+    }
+
+    .menu ul {
+        /* hide to zero with 'max-height' here and below in '[aria-expanded="true"] ~ ul' */
+        max-height: 0;
+        overflow: hidden;
+        transform: rotateX(90deg);
+        transition: all 0.5s;
+    }
+
+    [aria-controls="menu-list"] {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    /* when 'aria-expanded' is 'true', the first unordered list, that comes after it ( '~': "future sibling" )
+       will get new css parameters:
+     */
+    [aria-expanded="true"] ~ ul {
+        display: grid;
+        max-height: 500px;
+        transform: rotateX(0);
+    }
+
+    /* when 'aria-expanded' is 'true', '.close' gets new css parameters: */
+    [aria-expanded="true"] .close {
+        display: inline-block;
+    }
+
+    /* when 'aria-expanded' is 'true', '.open' gets new css parameters: */
+    [aria-expanded="true"] .open {
+        display: none;
+    }
+
+    /* when 'aria-expanded' is 'false', we don't display the 'x' in the menue button */
+    [aria-expanded="false"] .close {
+        display: none;
+    }
+
+}
+
+@media (max-width: 700px) {
+    .top {
+        grid-template-areas:
+    "title title"
+    "campaign1 campaign2";
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .top {
+        grid-template-areas:
+                "title"
+                "campaign1"
+                "campaign2";
+    }
+}
+
