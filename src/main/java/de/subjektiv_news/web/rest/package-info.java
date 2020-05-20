@@ -1,4 +1,0 @@
-/**
- * Spring MVC REST controllers.
- */
-package de.subjektiv_news.web.rest;
