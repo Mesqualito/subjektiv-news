@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>subjektiv!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script language="JavaScript">
+<!--
+
+function MM_showHideLayers() { //v2.0
+  var i, visStr, args, theObj;
+  args = MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) { //with arg triples (objNS,objIE,visStr)
+    visStr   = args[i+2];
+    if (navigator.appName == 'Netscape' && document.layers != null) {
+      theObj = eval(args[i]);
+      if (theObj) theObj.visibility = visStr;
+    } else if (document.all != null) { //IE
+      if (visStr == 'show') visStr = 'visible'; //convert vals
+      if (visStr == 'hide') visStr = 'hidden';
+      theObj = eval(args[i+1]);
+      if (theObj) theObj.style.visibility = visStr;
+  } }
+}
+
+function MM_goToURL() { //v2.0
+  for (var i=0; i< (MM_goToURL.arguments.length - 1); i+=2) //with arg pairs
+    eval(MM_goToURL.arguments[i]+".location='"+MM_goToURL.arguments[i+1]+"'");
+  document.MM_returnValue = false;
+}
+
+function MM_displayStatusMsg(msgStr) { //v2.0
+  status=msgStr;
+  document.MM_returnValue = true;
+}
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF">
+<div id="Frapic" style="position:absolute; left:12px; top:43px; width:112px; height:420px; z-index:1"><img src="Frapic.gif" width="122" height="397"></div>
+<div id="Kontakt" style="position:absolute; left:3px; top:130px; width:140px; height:40px; z-index:2" onMouseOver="MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Konlumi\']','parent.frames[\'Infos\'].document.all[\'Konlumi\']','show')" onClick="MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Konred\']','parent.frames[\'Infos\'].document.all[\'Konred\']','show');MM_goToURL('parent.frames[\'Home\']','Page2.htm');return document.MM_returnValue" onMouseOut="MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Konlumi\']','parent.frames[\'Infos\'].document.all[\'Konlumi\']','hide');MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Konred\']','parent.frames[\'Infos\'].document.all[\'Konred\']','hide')" onMouseMove="MM_displayStatusMsg('Hier finden Sie Kontaktadressen...');return document.MM_returnValue"><img src="Kontakt.gif" width="170" height="54" border="0" alt="Kontaktadressen"></div>
+<div id="Konred" style="position:absolute; left:157px; top:173px; width:16px; height:13px; z-index:8; visibility: hidden"><img src="Kontaktrot.gif" width="24" height="24"></div>
+<div id="Konlumi" style="position:absolute; left:152px; top:168px; width:15px; height:20px; z-index:5; visibility: hidden"><img src="Kontaktlumi.gif" width="34" height="34"></div>
+<div id="Down" style="position:absolute; left:4px; top:251px; width:140px; height:40px; z-index:3" onClick="MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Downred\']','parent.frames[\'Infos\'].document.all[\'Downred\']','show')" onMouseOver="MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Downlumi\']','parent.frames[\'Infos\'].document.all[\'Downlumi\']','show')" onMouseOut="MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Downred\']','parent.frames[\'Infos\'].document.all[\'Downred\']','hide');MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Downlumi\']','parent.frames[\'Infos\'].document.all[\'Downlumi\']','hide')" onMouseMove="MM_displayStatusMsg('Hier k&ouml;nnen Sie sich die bisher erschienenen Ausgaben herunterladen...');return document.MM_returnValue"><img src="Down.gif" width="170" height="54" alt="Download-Link"></div>
+<div id="Downred" style="position:absolute; left:158px; top:294px; width:16px; height:13px; z-index:9; visibility: hidden"><img src="Kontaktrot.gif" width="24" height="24"></div>
+<div id="Downlumi" style="position:absolute; left:153px; top:289px; width:15px; height:20px; z-index:6; visibility: hidden"><img src="Kontaktlumi.gif" width="34" height="34"></div>
+<div id="Home" style="position:absolute; left:3px; top:371px; width:140px; height:40px; z-index:4" onClick="MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Homered\']','parent.frames[\'Infos\'].document.all[\'Homered\']','show');MM_goToURL('parent.frames[\'Home\']','Page1-1.htm');return document.MM_returnValue" onMouseOver="MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Homelumi\']','parent.frames[\'Infos\'].document.all[\'Homelumi\']','show')" onMouseOut="MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Homered\']','parent.frames[\'Infos\'].document.all[\'Homered\']','hide');MM_showHideLayers('parent.frames[\'Infos\'].document.layers[\'Homelumi\']','parent.frames[\'Infos\'].document.all[\'Homelumi\']','hide')" onMouseMove="MM_displayStatusMsg('Hier geht\'s zur&uuml;ck zur Startseite...');return document.MM_returnValue"><img src="Home.gif" width="170" height="54" alt="Zur Startseite"></div>
+<div id="Homered" style="position:absolute; left:158px; top:413px; width:16px; height:13px; z-index:10; visibility: hidden"><img src="Kontaktrot.gif" width="24" height="24"></div>
+<div id="Homelumi" style="position:absolute; left:153px; top:408px; width:15px; height:20px; z-index:7; visibility: hidden"><img src="Kontaktlumi.gif" width="34" height="34"></div>
+</body>
+</html>

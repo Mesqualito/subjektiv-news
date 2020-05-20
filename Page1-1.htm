@@ -1,0 +1,308 @@
+<html>
+<head>
+<title>Die Homepage von »subjektiv!«</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="keywords" content="subjektiv subjekt Liebe Hilfe Zeitung Zeitschrift
+Wohlbefinden Lust Revolution Aufstand Links Unsinn Sinn Leben Trotz Wut Bauch Hass
+Haß Ordnung Unordnung Fachblatt">
+<script language="JavaScript">
+<!--
+function MM_timelinePlay(tmLnName, myID) { //v1.2
+  //Copyright 1997 Macromedia, Inc. All rights reserved.
+  var i,j,tmLn,props,keyFrm,sprite,numKeyFr,firstKeyFr,propNum,theObj,firstTime=false;
+  if (document.MM_Time == null) MM_initTimelines(); //if *very* 1st time
+  tmLn = document.MM_Time[tmLnName];
+  if (myID == null) { myID = ++tmLn.ID; firstTime=true;}//if new call, incr ID
+  if (myID == tmLn.ID) { //if Im newest
+    setTimeout('MM_timelinePlay("'+tmLnName+'",'+myID+')',tmLn.delay);
+    fNew = ++tmLn.curFrame;
+    for (i=0; i<tmLn.length; i++) {
+      sprite = tmLn[i];
+      if (sprite.charAt(0) == 's') {
+        if (sprite.obj) {
+          numKeyFr = sprite.keyFrames.length; firstKeyFr = sprite.keyFrames[0];
+          if (fNew >= firstKeyFr && fNew <= sprite.keyFrames[numKeyFr-1]) {//in range
+            keyFrm=1;
+            for (j=0; j<sprite.values.length; j++) {
+              props = sprite.values[j]; 
+              if (numKeyFr != props.length) {
+                if (props.prop2 == null) sprite.obj[props.prop] = props[fNew-firstKeyFr];
+                else        sprite.obj[props.prop2][props.prop] = props[fNew-firstKeyFr];
+              } else {
+                while (keyFrm<numKeyFr && fNew>=sprite.keyFrames[keyFrm]) keyFrm++;
+                if (firstTime || fNew==sprite.keyFrames[keyFrm-1]) {
+                  if (props.prop2 == null) sprite.obj[props.prop] = props[keyFrm-1];
+                  else        sprite.obj[props.prop2][props.prop] = props[keyFrm-1];
+        } } } } }
+      } else if (sprite.charAt(0)=='b' && fNew == sprite.frame) eval(sprite.value);
+      if (fNew > tmLn.lastFrame) tmLn.ID = 0;
+  } }
+}
+
+function MM_goToURL() { //v2.0 
+  for (var i=0; i< (MM_goToURL.arguments.length - 1); i+=2) //with arg pairs
+    eval(MM_goToURL.arguments[i]+".location='"+MM_goToURL.arguments[i+1]+"'");
+  document.MM_returnValue = false;
+}
+
+function MM_showHideLayers() { //v2.0
+  var i, visStr, args, theObj;
+  args = MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) { //with arg triples (objNS,objIE,visStr)
+    visStr   = args[i+2];
+    if (navigator.appName == 'Netscape' && document.layers != null) {
+      theObj = eval(args[i]);
+      if (theObj) theObj.visibility = visStr;
+    } else if (document.all != null) { //IE
+      if (visStr == 'show') visStr = 'visible'; //convert vals
+      if (visStr == 'hide') visStr = 'hidden';
+      theObj = eval(args[i+1]);
+      if (theObj) theObj.style.visibility = visStr;
+  } }
+}
+
+function MM_timelineGoto(tmLnName, fNew, numGotos) { //v2.0
+  //Copyright 1997 Macromedia, Inc. All rights reserved.
+  var i,j,tmLn,props,keyFrm,sprite,numKeyFr,firstKeyFr,lastKeyFr,propNum,theObj;
+  if (document.MM_Time == null) MM_initTimelines(); //if *very* 1st time
+  tmLn = document.MM_Time[tmLnName];
+  if (numGotos != null)
+    if (tmLn.gotoCount == null) tmLn.gotoCount = 1;
+    else if (tmLn.gotoCount++ >= numGotos) {tmLn.gotoCount=0; return}
+  jmpFwd = (fNew > tmLn.curFrame);
+  for (i = 0; i < tmLn.length; i++) {
+    sprite = (jmpFwd)? tmLn[i] : tmLn[(tmLn.length-1)-i]; //count bkwds if jumping back
+    if (sprite.charAt(0) == "s") {
+      numKeyFr = sprite.keyFrames.length;
+      firstKeyFr = sprite.keyFrames[0];
+      lastKeyFr = sprite.keyFrames[numKeyFr - 1];
+      if ((jmpFwd && fNew<firstKeyFr) || (!jmpFwd && lastKeyFr<fNew)) continue; //skip if untouchd
+      for (keyFrm=1; keyFrm<numKeyFr && fNew>=sprite.keyFrames[keyFrm]; keyFrm++);
+      for (j=0; j<sprite.values.length; j++) {
+        props = sprite.values[j];
+        if (numKeyFr == props.length) propNum = keyFrm-1 //keyframes only
+        else propNum = Math.min(Math.max(0,fNew-firstKeyFr),props.length-1); //or keep in legal range
+        if (sprite.obj != null) {
+          if (props.prop2 == null) sprite.obj[props.prop] = props[propNum];
+          else        sprite.obj[props.prop2][props.prop] = props[propNum];
+      } }
+    } else if (sprite.charAt(0)=='b' && fNew == sprite.frame) eval(sprite.value);
+  }
+  tmLn.curFrame = fNew;
+  if (tmLn.ID == 0) eval('MM_timelinePlay(tmLnName)');
+}
+
+function MM_initTimelines() {
+    //MM_initTimelines() Copyright 1997 Macromedia, Inc. All rights reserved.
+    var ns = navigator.appName == "Netscape";
+    document.MM_Time = new Array(1);
+    document.MM_Time[0] = new Array(40);
+    document.MM_Time["Timeline1"] = document.MM_Time[0];
+    document.MM_Time[0].MM_Name = "Timeline1";
+    document.MM_Time[0].fps = 20;
+    document.MM_Time[0][0] = new String("sprite");
+    document.MM_Time[0][0].slot = 2;
+    if (ns)
+        document.MM_Time[0][0].obj = document["v"];
+    else
+        document.MM_Time[0][0].obj = document.all ? document.all["v"] : null;
+    document.MM_Time[0][0].keyFrames = new Array(1, 60);
+    document.MM_Time[0][0].values = new Array(0);
+    document.MM_Time[0][1] = new String("sprite");
+    document.MM_Time[0][1].slot = 3;
+    if (ns)
+        document.MM_Time[0][1].obj = document["i"];
+    else
+        document.MM_Time[0][1].obj = document.all ? document.all["i"] : null;
+    document.MM_Time[0][1].keyFrames = new Array(1, 60);
+    document.MM_Time[0][1].values = new Array(0);
+    document.MM_Time[0][2] = new String("sprite");
+    document.MM_Time[0][2].slot = 4;
+    if (ns)
+        document.MM_Time[0][2].obj = document["t"];
+    else
+        document.MM_Time[0][2].obj = document.all ? document.all["t"] : null;
+    document.MM_Time[0][2].keyFrames = new Array(1, 60);
+    document.MM_Time[0][2].values = new Array(0);
+    document.MM_Time[0][3] = new String("sprite");
+    document.MM_Time[0][3].slot = 5;
+    if (ns)
+        document.MM_Time[0][3].obj = document["k"];
+    else
+        document.MM_Time[0][3].obj = document.all ? document.all["k"] : null;
+    document.MM_Time[0][3].keyFrames = new Array(1, 60);
+    document.MM_Time[0][3].values = new Array(0);
+    document.MM_Time[0][4] = new String("sprite");
+    document.MM_Time[0][4].slot = 6;
+    if (ns)
+        document.MM_Time[0][4].obj = document["e"];
+    else
+        document.MM_Time[0][4].obj = document.all ? document.all["e"] : null;
+    document.MM_Time[0][4].keyFrames = new Array(1, 60);
+    document.MM_Time[0][4].values = new Array(0);
+    document.MM_Time[0][5] = new String("sprite");
+    document.MM_Time[0][5].slot = 7;
+    if (ns)
+        document.MM_Time[0][5].obj = document["j"];
+    else
+        document.MM_Time[0][5].obj = document.all ? document.all["j"] : null;
+    document.MM_Time[0][5].keyFrames = new Array(1, 60);
+    document.MM_Time[0][5].values = new Array(0);
+    document.MM_Time[0][6] = new String("sprite");
+    document.MM_Time[0][6].slot = 8;
+    if (ns)
+        document.MM_Time[0][6].obj = document["b"];
+    else
+        document.MM_Time[0][6].obj = document.all ? document.all["b"] : null;
+    document.MM_Time[0][6].keyFrames = new Array(1, 60);
+    document.MM_Time[0][6].values = new Array(0);
+    document.MM_Time[0][7] = new String("sprite");
+    document.MM_Time[0][7].slot = 9;
+    if (ns)
+        document.MM_Time[0][7].obj = document["u"];
+    else
+        document.MM_Time[0][7].obj = document.all ? document.all["u"] : null;
+    document.MM_Time[0][7].keyFrames = new Array(1, 60);
+    document.MM_Time[0][7].values = new Array(0);
+    document.MM_Time[0][8] = new String("sprite");
+    document.MM_Time[0][8].slot = 10;
+    if (ns)
+        document.MM_Time[0][8].obj = document["s"];
+    else
+        document.MM_Time[0][8].obj = document.all ? document.all["s"] : null;
+    document.MM_Time[0][8].keyFrames = new Array(1, 60);
+    document.MM_Time[0][8].values = new Array(0);
+    document.MM_Time[0][9] = new String("behavior");
+    document.MM_Time[0][9].frame = 5;
+    document.MM_Time[0][9].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'v\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'v\\\']','hide')";
+    document.MM_Time[0][10] = new String("behavior");
+    document.MM_Time[0][10].frame = 7;
+    document.MM_Time[0][10].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'i\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'i\\\']','hide')";
+    document.MM_Time[0][11] = new String("behavior");
+    document.MM_Time[0][11].frame = 9;
+    document.MM_Time[0][11].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'t\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'t\\\']','hide')";
+    document.MM_Time[0][12] = new String("behavior");
+    document.MM_Time[0][12].frame = 11;
+    document.MM_Time[0][12].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'k\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'k\\\']','hide')";
+    document.MM_Time[0][13] = new String("behavior");
+    document.MM_Time[0][13].frame = 13;
+    document.MM_Time[0][13].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'e\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'e\\\']','hide')";
+    document.MM_Time[0][14] = new String("behavior");
+    document.MM_Time[0][14].frame = 15;
+    document.MM_Time[0][14].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'j\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'j\\\']','hide')";
+    document.MM_Time[0][15] = new String("behavior");
+    document.MM_Time[0][15].frame = 17;
+    document.MM_Time[0][15].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'b\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'b\\\']','hide')";
+    document.MM_Time[0][16] = new String("behavior");
+    document.MM_Time[0][16].frame = 19;
+    document.MM_Time[0][16].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'u\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'u\\\']','hide')";
+    document.MM_Time[0][17] = new String("behavior");
+    document.MM_Time[0][17].frame = 20;
+    document.MM_Time[0][17].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'u\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'u\\\']','show')";
+    document.MM_Time[0][18] = new String("behavior");
+    document.MM_Time[0][18].frame = 22;
+    document.MM_Time[0][18].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'b\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'b\\\']','show')";
+    document.MM_Time[0][19] = new String("behavior");
+    document.MM_Time[0][19].frame = 24;
+    document.MM_Time[0][19].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'j\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'j\\\']','show')";
+    document.MM_Time[0][20] = new String("behavior");
+    document.MM_Time[0][20].frame = 26;
+    document.MM_Time[0][20].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'k\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'k\\\']','show')";
+    document.MM_Time[0][21] = new String("behavior");
+    document.MM_Time[0][21].frame = 28;
+    document.MM_Time[0][21].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'t\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'t\\\']','show')";
+    document.MM_Time[0][22] = new String("behavior");
+    document.MM_Time[0][22].frame = 30;
+    document.MM_Time[0][22].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'i\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'i\\\']','show')";
+    document.MM_Time[0][23] = new String("behavior");
+    document.MM_Time[0][23].frame = 31;
+    document.MM_Time[0][23].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'s\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'s\\\']','hide')";
+    document.MM_Time[0][24] = new String("behavior");
+    document.MM_Time[0][24].frame = 32;
+    document.MM_Time[0][24].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'v\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'v\\\']','show');MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'u\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'u\\\']','hide')";
+    document.MM_Time[0][25] = new String("behavior");
+    document.MM_Time[0][25].frame = 34;
+    document.MM_Time[0][25].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'b\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'b\\\']','hide')";
+    document.MM_Time[0][26] = new String("behavior");
+    document.MM_Time[0][26].frame = 36;
+    document.MM_Time[0][26].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'j\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'j\\\']','hide')";
+    document.MM_Time[0][27] = new String("behavior");
+    document.MM_Time[0][27].frame = 38;
+    document.MM_Time[0][27].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'e\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'e\\\']','hide')";
+    document.MM_Time[0][28] = new String("behavior");
+    document.MM_Time[0][28].frame = 40;
+    document.MM_Time[0][28].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'k\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'k\\\']','hide')";
+    document.MM_Time[0][29] = new String("behavior");
+    document.MM_Time[0][29].frame = 42;
+    document.MM_Time[0][29].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'t\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'t\\\']','hide')";
+    document.MM_Time[0][30] = new String("behavior");
+    document.MM_Time[0][30].frame = 44;
+    document.MM_Time[0][30].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'i\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'i\\\']','hide')";
+    document.MM_Time[0][31] = new String("behavior");
+    document.MM_Time[0][31].frame = 46;
+    document.MM_Time[0][31].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'i\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'i\\\']','show')";
+    document.MM_Time[0][32] = new String("behavior");
+    document.MM_Time[0][32].frame = 48;
+    document.MM_Time[0][32].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'t\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'t\\\']','show')";
+    document.MM_Time[0][33] = new String("behavior");
+    document.MM_Time[0][33].frame = 50;
+    document.MM_Time[0][33].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'k\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'k\\\']','show')";
+    document.MM_Time[0][34] = new String("behavior");
+    document.MM_Time[0][34].frame = 52;
+    document.MM_Time[0][34].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'e\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'e\\\']','show')";
+    document.MM_Time[0][35] = new String("behavior");
+    document.MM_Time[0][35].frame = 54;
+    document.MM_Time[0][35].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'j\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'j\\\']','show')";
+    document.MM_Time[0][36] = new String("behavior");
+    document.MM_Time[0][36].frame = 56;
+    document.MM_Time[0][36].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'b\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'b\\\']','show')";
+    document.MM_Time[0][37] = new String("behavior");
+    document.MM_Time[0][37].frame = 58;
+    document.MM_Time[0][37].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'u\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'u\\\']','show')";
+    document.MM_Time[0][38] = new String("behavior");
+    document.MM_Time[0][38].frame = 60;
+    document.MM_Time[0][38].value = "MM_showHideLayers('parent.frames[\\\'Home\\\'].document.layers[\\\'s\\\']','parent.frames[\\\'Home\\\'].document.all[\\\'s\\\']','show')";
+    document.MM_Time[0][39] = new String("behavior");
+    document.MM_Time[0][39].frame = 61;
+    document.MM_Time[0][39].value = "MM_timelineGoto('Timeline1','1')";
+    document.MM_Time[0].lastFrame = 61;
+    for (i=0; i<document.MM_Time.length; i++) {
+        document.MM_Time[i].ID = null;
+        document.MM_Time[i].curFrame = 0;
+        document.MM_Time[i].delay = 1000/document.MM_Time[i].fps;
+    }
+}
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" onLoad="MM_timelinePlay('Timeline1')">
+<div id="s" style="position:absolute; left:28px; top:55px; width:40px; height:50px; z-index:11; visibility: visible"><img src="s.gif" width="57" height="57"></div>
+<div id="u" style="position:absolute; left:79px; top:61px; width:35px; height:35px; z-index:13; visibility: visible"><img src="u.gif" width="57" height="57"></div>
+<div id="b" style="position:absolute; left:124px; top:47px; width:38px; height:16px; z-index:14; visibility: visible"><img src="b.gif" width="71" height="71"></div>
+<div id="j" style="position:absolute; left:183px; top:54px; width:31px; height:18px; z-index:15; visibility: visible"><img src="j.gif" width="65" height="65"></div>
+<div id="e" style="position:absolute; left:239px; top:61px; width:33px; height:28px; z-index:16; visibility: visible"><img src="e.gif" width="57" height="57"></div>
+<div id="k" style="position:absolute; left:285px; top:53px; width:50px; height:60px; z-index:17; visibility: visible"><img src="k.gif" width="65" height="65"></div>
+<div id="i" style="position:absolute; left:385px; top:53px; width:41px; height:45px; z-index:18; visibility: visible"><img src="i.gif" width="65" height="65"></div>
+<div id="v" style="position:absolute; left:438px; top:48px; width:38px; height:40px; z-index:19; visibility: visible"><img src="v.gif" width="71" height="71"></div>
+<div id="t" style="position:absolute; left:339px; top:60px; width:31px; height:45px; z-index:20; visibility: visible"><img src="t.gif" width="57" height="57"></div>
+<div id="Layer1" style="position:absolute; left:8px; top:146px; width:170px; height:150px; z-index:21"><font color="#aaaaaa"><b>»subjektiv!«</b></font> 
+  ist ein Fach-blatt junger Menschen, die sich vorgenommen haben, Ihre Wut im 
+  Bauch nicht in einem Magengeschwür, sondern in einem literari-schen Erguß münden 
+  zu lassen.</div>
+<div id="Layer2" style="position:absolute; left:368px; top:146px; width:165px; height:150px; z-index:22"><font color="#aaaaaa"><b>»subjektiv!«</b></font> 
+  ist eine Low-Cost-Zeitschrift, die in Spontanität Haß und Liebe vereint. Dabei 
+  kreuzen die Leser durch Esoterik und Wissenschaft, Realität und Unsinn. Hier 
+  darf und soll alles stehen - ohne Zensur!</div>
+<div id="Layer3" style="position:absolute; left:188px; top:146px; width:170px; height:150px; z-index:23"><font color="#aaaaaa"><b>»subjektiv!«</b></font> 
+  braucht Dich. Wir kosten nichts, außer vielleicht ein bißchen Engagement. Meinungen 
+  in Form von Leserbriefen... Denn was einer schreibt, das bleibt. Offene Weite 
+  - nichts ist heilig!</div>
+<div id="Layer4" style="position:absolute; left:8px; top:311px; width:550px; height:60px; z-index:24"><font color="#aaaaaa"><b>»subjektiv!«</b></font>wird 
+  in einer Auflage von circa 200 Ausgaben im Monat kopiert. Weitere Ausgaben entstehen 
+  durch Leser, die die Blätter nochmals kopieren.<br>
+  <font color="#aaaaaa"><b>»subjektiv!«</b></font> ist unsere Freizeitbeschäftigung, 
+  allerdings bei weitem nicht die einzigste. Regelmäßig beziehen kann man unser 
+  Schriftwerk deswegen nur im Atelier MO und hier im Internet (-:</div>
+</body>
+</html>
