@@ -1,5 +1,11 @@
 @import "basic.css";
 
+html {
+    color: #444;
+    font-family: Cambria, Cochin, Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
 h1, h2 {
     font-size: 80px;
     font-style: italic;
@@ -11,3 +17,57 @@ a {
     text-decoration: underline wavy var(--yellow);
 }
 
+.post {
+    display: grid;
+    max-width: 1000px;
+    margin: 200px auto;
+    grid-gap: 10px 50px;
+    grid-template-columns: 15% 1fr 25%;
+}
+
+/* every single item which is a direct child of '.post' */
+.post > * {
+    /* start in column 2 and span 2 from the last one backwards;
+       that's nice, because when the middle column will break into two in the future,
+       then both middle columns stay in the middle. 2 / -2 = symmetric !
+    */
+    grid-column: 2 / -2;
+}
+
+.post > figure {
+    margin: 0;
+    /* span grid column "full-bleed" (over all the width) */
+    grid-column: 1 / -1;
+}
+
+.post > blockquote {
+    grid-column: 1 / -1;
+    font-size: 60px;
+    font-style: italic;
+    text-align: center;
+    margin: 0;
+}
+
+.figcaption {
+    font-size: 10px;
+}
+
+.tip {
+    background: #FAFAFA;
+    padding: 10px;
+    grid-row: span 5;
+    align-self: start;
+}
+
+.tip-left {
+    /* grid-column starts in the first one and spans one column */
+    grid-column: 1 / span 1;
+    text-align: right;
+    border-right: 2px solid var(--yellow);
+}
+
+.tip-right {
+    /* grid-column ends in the last one and spans one column */
+    grid-column: span 1 / -1;
+    border-left: 2px solid var(--yellow);
+}
