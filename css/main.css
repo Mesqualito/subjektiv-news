@@ -1,5 +1,11 @@
 @import "basic.css";
 
+button {
+    background: #ffc600;
+    border: 0;
+    padding: 10px 20px;
+}
+
 .wrapper {
     display: grid;
     grid-gap: 20px;

@@ -38,6 +38,10 @@ img {
     max-width: 100%;
 }
 
+p {
+    line-height: 1.8;
+}
+
 h1,
 h2,
 h3,
@@ -47,8 +51,3 @@ h6 {
     margin: 0 0 5px 0;
 }
 
-button {
-    background: #ffc600;
-    border: 0;
-    padding: 10px 20px;
-}
